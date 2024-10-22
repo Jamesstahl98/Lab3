@@ -4,7 +4,6 @@
              xmlns:local="clr-namespace:Lab_3"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-        
         <Style TargetType="Label">
             <Setter Property="Foreground" Value ="White"/>
             <Setter Property="Margin" Value ="0,10,0,0"/>
@@ -14,12 +13,8 @@
             <Setter Property="Background" Value ="#3d3d3d"/>
             <Setter Property="Padding" Value ="3,6"/>
         </Style>
-        <Style TargetType="Button">
-            <Setter Property="Foreground" Value ="#202020"/>
-            <Setter Property="Background" Value ="White"/>
-            <Setter Property="Margin" Value ="10"/>
-            <Setter Property="Height" Value ="20"/>
-            <Setter Property="Width" Value ="20"/>
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Foreground" Value ="White"/>
         </Style>
     </Application.Resources>
 </Application>

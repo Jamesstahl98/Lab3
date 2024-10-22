@@ -16,7 +16,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1">
-            <DockPanel>
+            <DockPanel Margin="30,0">
                 <Label Content="PackName"
                        Grid.Row="1"/>
                 <DockPanel Grid.Row="1"
@@ -27,14 +27,14 @@
                     <Button Content="-"/>
                 </DockPanel>
             </DockPanel>
-            <ListBox Grid.Row="1"
-                     Margin="20,0"
-                     Background="#3d3d3d">
-                <ListBoxItem Content="Test"/>
-                <ListBoxItem Content="Test"/>
-                <ListBoxItem Content="Test"/>
-                <ListBoxItem Content="Test"/>
-            </ListBox>
+            <ListView Grid.Row="1"
+                      Margin="20,0"
+                      Background="#3d3d3d">
+                <ListViewItem Content="Test"/>
+                <ListViewItem Content="Test"/>
+                <ListViewItem Content="Test"/>
+                <ListViewItem Content="Test"/>
+            </ListView>
         </StackPanel>
         <StackPanel Orientation="Horizontal"
                     Grid.Row="1"

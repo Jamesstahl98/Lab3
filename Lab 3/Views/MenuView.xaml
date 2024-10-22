@@ -7,26 +7,40 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value ="#202020"/>
+        </Style>
+        <Style TargetType="MenuItem">
+            <Setter Property="Foreground" Value ="White"/>
+            <Setter Property="Background" Value ="#3d3d3d"/>
+            <Setter Property="Padding" Value ="4,0"/>
+            <Setter Property="BorderBrush" Value ="Black"/>
+        </Style>
     </UserControl.Resources>
+    
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
         <Menu HorizontalContentAlignment="Left"
-          VerticalAlignment="Top"
-          Background="#3d3d3d"
-          Foreground="White"
-          Grid.ColumnSpan="2"
-          Grid.Row="0">
-            <MenuItem Header="File"/>
-            <MenuItem Header="Edit"/>
-            <MenuItem Header="View"/>
+              VerticalAlignment="Top"
+              Background="#3d3d3d"
+              BorderBrush="Black"
+              Foreground="White">
+            <MenuItem Header="File">
+                <MenuItem Header="New Question Pack"/>
+                <MenuItem Header="Select Question Pack"/>
+                <MenuItem Header="Delete Question Pack"/>
+                <MenuItem Header="Import Questions"/>
+                <MenuItem Header="Exit"/>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Add Question"/>
+                <MenuItem Header="Remove Question"/>
+                <MenuItem Header="Pack Options"/>
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Play"/>
+                <MenuItem Header="Edit"/>
+                <MenuItem Header="Fullscreen"/>
+            </MenuItem>
         </Menu>
     </Grid>
 </UserControl>

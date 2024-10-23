@@ -12,9 +12,9 @@ namespace Lab_3.Views
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowViewModel();
 
             var pack = new QuestionPackViewModel(new QuestionPack("Question Pack"));
-            pack.TimeLimitInSeconds = 5;
         }
     }
 }

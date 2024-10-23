@@ -5,9 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab_3.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="470" Width="900">
     <Window.Resources>
 
     </Window.Resources>
-    <local:MenuView/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <local:MenuView Grid.Row="0"/>
+        <local:ConfiguratorView Grid.Row="1"/>
+        <local:PlayerView Grid.Row="1" Visibility="Collapsed"/>
+    </Grid>
 </Window>

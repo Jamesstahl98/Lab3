@@ -1,13 +1,6 @@
-﻿using System.Text;
+﻿using Lab_3.Model;
+using Lab_3.ViewModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Lab_3.Views
 {
@@ -19,6 +12,9 @@ namespace Lab_3.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            var pack = new QuestionPackViewModel(new QuestionPack("Question Pack"));
+            pack.TimeLimitInSeconds = 5;
         }
     }
 }

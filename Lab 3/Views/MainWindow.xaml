@@ -9,6 +9,5 @@
     <Window.Resources>
 
     </Window.Resources>
-    <local:MenuView>
-    </local:MenuView>
+    <local:MenuView/>
 </Window>

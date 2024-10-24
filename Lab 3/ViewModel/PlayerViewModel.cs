@@ -42,6 +42,7 @@ namespace Lab_3.ViewModel
         private void UpdateButton(object obj)
         {
             TestData += "x";
+            UpdateButtonCommand.RaiseCanExecuteChanged();
         }
 
         private void Timer_Tick(object? sender, EventArgs e)

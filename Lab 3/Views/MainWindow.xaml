@@ -5,10 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab_3.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="470" Width="900">
+        Title="MainWindow" Height="500" Width="900">
     <Window.Resources>
 
     </Window.Resources>
+    <Window.InputBindings>
+        
+    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

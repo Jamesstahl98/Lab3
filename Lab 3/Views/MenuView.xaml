@@ -27,7 +27,8 @@
               Foreground="White">
             <MenuItem Header="_File">
                 <MenuItem Header="_New Question Pack"
-                          Icon="{fa:Icon FolderPlus}"/>
+                          Icon="{fa:Icon FolderPlus}"
+                          Click="OpenCreateNewPackDialog"/>
                 <MenuItem Header="_Select Question Pack"
                           Icon="{fa:Icon FolderOpen}"/>
                 <MenuItem Header="_Delete Question Pack"

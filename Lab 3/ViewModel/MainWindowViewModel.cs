@@ -30,6 +30,8 @@ namespace Lab_3.ViewModel
             ConfigurationViewModel = new ConfigurationViewModel(this);
 
             ActivePack = new QuestionPackViewModel(new QuestionPack("Question Pack"));
+            Packs = new ObservableCollection<QuestionPackViewModel>();
+            Packs.Add(ActivePack);
         }
     }
 }

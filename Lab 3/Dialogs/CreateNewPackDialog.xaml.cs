@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Lab_3.Model;
+using Lab_3.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,9 +24,10 @@ namespace Lab_3.Dialogs
         public CreateNewPackDialog()
         {
             InitializeComponent();
+            DataContext = new QuestionPackViewModel(new QuestionPack("Question Pack"));
         }
 
-        private void CloseDialog(object sender, RoutedEventArgs e)
+        public void CloseDialog(object sender, RoutedEventArgs e)
         {
 
             if(sender == createButton)

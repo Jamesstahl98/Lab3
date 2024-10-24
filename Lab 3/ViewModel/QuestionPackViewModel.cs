@@ -1,6 +1,8 @@
-﻿using Lab_3.Model;
+﻿using Lab_3.Command;
+using Lab_3.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace Lab_3.ViewModel
@@ -16,6 +18,7 @@ namespace Lab_3.ViewModel
             {
                 model.Name = value;
                 RaisePropertyChanged();
+                Debug.WriteLine(Name);
             }
         }
         public Difficulty Difficulty
@@ -25,6 +28,7 @@ namespace Lab_3.ViewModel
             {
                 model.Difficulty = value;
                 RaisePropertyChanged();
+                Debug.WriteLine(Difficulty);
             }
         }
         public int TimeLimitInSeconds
@@ -34,14 +38,23 @@ namespace Lab_3.ViewModel
             {
                 model.TimeLimitInSeconds = value;
                 RaisePropertyChanged();
+                Debug.WriteLine(TimeLimitInSeconds);
             }
         }
         public ObservableCollection<Question> Questions { get; }
+        public DelegateCommand AddQuestionPackCommand { get; }
 
         public QuestionPackViewModel(QuestionPack model)
         {
             this.model = model;
             Questions = new ObservableCollection<Question>(model.Questions);
+
+            AddQuestionPackCommand = new DelegateCommand(AddQuestionPack);
+        }
+
+        private void AddQuestionPack(object obj)
+        {
+            
         }
     }
 }

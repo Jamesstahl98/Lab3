@@ -38,7 +38,7 @@ namespace Lab_3.Views
 
             if (dialogResult == true)
             {
-                
+                (MainWindow.DataContext as MainWindowViewModel).Packs.Add(dialog.DataContext as QuestionPackViewModel);
             }
         }
 
@@ -49,7 +49,7 @@ namespace Lab_3.Views
 
             if(dialogResult == true)
             {
-
+                
             }
         }
     }

@@ -27,11 +27,14 @@
     <Grid>
         <StackPanel>
             <Label Content="Pack Name:"/>
-            <TextBox Margin="20,0"/>
+            <TextBox x:Name="packName"
+                     Margin="20,0"
+                     Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="Difficulty:"/>
-            <ComboBox Margin="20,0"
+            <ComboBox x:Name="difficulty"
+                      Margin="20,0"
                       Foreground="#202020"
-                      SelectedIndex="1">
+                      SelectedIndex="{Binding Difficulty}">
                 <ComboBoxItem Content="Easy"/>
                 <ComboBoxItem Content="Medium"/>
                 <ComboBoxItem Content="Hard"/>
@@ -49,7 +52,8 @@
                     Maximum="120"
                     Minimum="5"
                     IsSnapToTickEnabled="True"
-                    TickFrequency="1"/>
+                    TickFrequency="1"
+                    Value="{Binding TimeLimitInSeconds}"/>
             <DockPanel HorizontalAlignment="Center">
                 <Button x:Name="cancelButton"
                         Content="Cancel"

@@ -20,8 +20,7 @@
             <Label Content="Pack Name:"/>
             <TextBox Margin="20,0"/>
             <Label Content="Difficulty:"/>
-            <ComboBox Margin="20,0"
-                      SelectedIndex="1">
+            <ComboBox Margin="20,0">
                 <ComboBoxItem Content="Easy"/>
                 <ComboBoxItem Content="Medium"/>
                 <ComboBoxItem Content="Hard"/>

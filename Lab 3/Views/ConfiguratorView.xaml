@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              xmlns:local="clr-namespace:Lab_3.Views"
-             DataContext="{Binding PlayerViewModel}"
+             DataContext="{Binding ConfigurationViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     
@@ -44,7 +44,7 @@
                     <Button>
                         <fa:IconBlock Icon="Sliders"/>
                     </Button>
-                    <Button>
+                    <Button Command="{Binding AddQuestionCommand}">
                         <fa:IconBlock Icon="Plus"/>
                     </Button>
                     <Button>
@@ -54,7 +54,8 @@
             </DockPanel>
             <ListView Grid.Row="1"
                       Margin="20,0"
-                      Background="#3d3d3d">
+                      Background="#3d3d3d"
+                      ItemsSource="{Binding ActivePack.Questions}">
             </ListView>
         </StackPanel>
         <StackPanel Orientation="Horizontal"

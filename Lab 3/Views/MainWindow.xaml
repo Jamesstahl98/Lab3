@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <local:MenuView Grid.Row="0"/>
-        <local:ConfiguratorView Grid.Row="1"/>
+        <local:ConfiguratorView Grid.Row="1" Visibility="Visible"/>
         <local:PlayerView Grid.Row="1" Visibility="Collapsed"/>
     </Grid>
 </Window>

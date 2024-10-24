@@ -40,17 +40,21 @@
             </MenuItem>
             <MenuItem Header="_Edit">
                 <MenuItem Header="_Add Question"
-                          Icon="{fa:Icon Plus}"/>
+                          Icon="{fa:Icon Plus}"
+                          Command="{Binding AddQuestionCommand}"/>
                 <MenuItem Header="_Remove Question"
-                          Icon="{fa:Icon Minus}"/>
+                          Icon="{fa:Icon Minus}"
+                          Command="{Binding RemoveQuestionCommand}"/>
                 <MenuItem Header="_Pack Options"
                           Icon="{fa:Icon Sliders}"/>
             </MenuItem>
             <MenuItem Header="_View">
                 <MenuItem Header="_Play"
-                          Icon="{fa:Icon Play}"/>
+                          Icon="{fa:Icon Play}"
+                          Click="GoToPlayerView"/>
                 <MenuItem Header="E_dit"
-                          Icon="{fa:Icon Gears}"/>
+                          Icon="{fa:Icon Gears}"
+                          Click="GoToConfiguratorView"/>
                 <MenuItem Header="_Fullscreen"
                           Icon="{fa:Icon Expand}"/>
             </MenuItem>

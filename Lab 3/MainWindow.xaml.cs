@@ -2,7 +2,7 @@
 using Lab_3.ViewModel;
 using System.Windows;
 
-namespace Lab_3.Views
+namespace Lab_3
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -15,6 +15,7 @@ namespace Lab_3.Views
             DataContext = new MainWindowViewModel();
 
             var pack = new QuestionPackViewModel(new QuestionPack("Question Pack"));
+            menuView.MainWindow = this;
         }
     }
 }

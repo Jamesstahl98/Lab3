@@ -6,6 +6,7 @@
     <Application.Resources>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value ="White"/>
+            <Setter Property="FontWeight" Value ="Bold"/>
             <Setter Property="Margin" Value ="0,10,0,0"/>
         </Style>
         <Style TargetType="TextBox">

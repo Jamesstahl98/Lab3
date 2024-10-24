@@ -12,12 +12,13 @@
             <Setter Property="Background" Value ="#202020"/>
         </Style>
         <Style TargetType="Button">
-            <Setter Property="Foreground" Value ="#202020"/>
-            <Setter Property="Background" Value ="White"/>
             <Setter Property="Margin" Value ="10"/>
             <Setter Property="Height" Value ="80"/>
             <Setter Property="Width" Value ="200"/>
             <Setter Property="FontSize" Value ="16"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value ="#202020"/>
         </Style>
     </UserControl.Resources>
     <Grid>

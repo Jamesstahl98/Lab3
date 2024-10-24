@@ -14,8 +14,6 @@
             <Setter Property="Background" Value ="#202020"/>
         </Style>
         <Style TargetType="Button">
-            <Setter Property="Foreground" Value ="#202020"/>
-            <Setter Property="Background" Value ="White"/>
             <Setter Property="Margin" Value ="10"/>
             <Setter Property="Height" Value ="20"/>
             <Setter Property="Width" Value ="20"/>
@@ -26,6 +24,7 @@
         <Style TargetType="Label">
             <Setter Property="Foreground" Value ="White"/>
             <Setter Property="Margin" Value ="20,10,0,0"/>
+            <Setter Property="FontWeight" Value ="Bold"/>
         </Style>
     </UserControl.Resources>
     

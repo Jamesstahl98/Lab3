@@ -36,7 +36,20 @@
                           Icon="{fa:Icon FolderPlus}"/>
                 <MenuItem Header="_Select Question Pack"
                           Icon="{fa:Icon FolderOpen}"
-                          ItemsSource="{Binding Packs}"/>
+                          ItemsSource="{Binding Packs}"
+                          Command="{Binding ChangeActivePackCommand}">
+                    <MenuItem.ItemContainerStyle>
+                        <Style TargetType="{x:Type MenuItem}">
+                            <Setter Property="Command" Value="{Binding DataContext.ChangeActivePackCommand, 
+                                RelativeSource={RelativeSource Mode=FindAncestor, 
+                                AncestorType={x:Type MenuItem}, 
+                                AncestorLevel=1}}" />
+                            <Setter Property="CommandParameter" Value="{Binding}" />
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Background" Value="#3d3d3d"/>
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
+                </MenuItem>
                 <MenuItem Header="_Delete Question Pack"
                           Icon="{fa:Icon FolderMinus}"/>
                 <MenuItem Header="_Import Questions"

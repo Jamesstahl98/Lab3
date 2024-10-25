@@ -12,42 +12,43 @@ namespace Lab_3.ViewModel
     {
         private readonly MainWindowViewModel? mainWindowViewModel;
         private DispatcherTimer timer;
-        private string _testData;
+        private int _timeLeft;
 
-        public string TestData 
+        public int TimeLeft
         {
-            get => _testData;
+            get => _timeLeft;
             private set
             {
-                _testData = value;
+                _timeLeft = value;
+                if(_timeLeft <= 0)
+                {
+                    TimeIsUp();
+                }
                 RaisePropertyChanged();
             }
         }
-        public DelegateCommand UpdateButtonCommand { get; }
 
         public PlayerViewModel(MainWindowViewModel? mainWindowViewModel)
         {
             this.mainWindowViewModel = mainWindowViewModel;
+        }
 
-            TestData = "Start Value";
-
+        public void StartQuiz(QuestionPackViewModel questionPackViewModel)
+        {
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
-            //timer.Start();
-
-            UpdateButtonCommand = new DelegateCommand(UpdateButton);
-        }
-
-        private void UpdateButton(object obj)
-        {
-            TestData += "x";
-            UpdateButtonCommand.RaiseCanExecuteChanged();
+            timer.Start();
         }
 
         private void Timer_Tick(object? sender, EventArgs e)
         {
-            TestData += "x";
+            TimeLeft--;
+        }
+
+        private void TimeIsUp()
+        {
+
         }
     }
 }

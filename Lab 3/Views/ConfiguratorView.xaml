@@ -58,7 +58,7 @@
             <ListView Grid.Row="1"
                       Margin="20,0"
                       Background="#3d3d3d"
-                      ItemsSource="{Binding ActivePack.Questions, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding ActivePack.Questions}"
                       SelectedItem="{Binding ActiveQuestion, Mode=OneWayToSource}">
             </ListView>
         </StackPanel>

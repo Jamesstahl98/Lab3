@@ -1,4 +1,5 @@
-﻿using Lab_3.Model;
+﻿using Lab_3.Command;
+using Lab_3.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,9 +21,9 @@ namespace Lab_3.ViewModel
                 RaisePropertyChanged();
             }
 		}
-        public ObservableCollection<QuestionPackViewModel> Packs { get; set; }
+        public ObservableCollection<QuestionPackViewModel> Packs{ get; set; }
         public PlayerViewModel PlayerViewModel { get; }
-        public ConfigurationViewModel ConfigurationViewModel { get; } 
+        public ConfigurationViewModel ConfigurationViewModel { get; }
 
         public MainWindowViewModel()
         {

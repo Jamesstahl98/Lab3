@@ -18,7 +18,6 @@ namespace Lab_3.ViewModel
             {
                 model.Name = value;
                 RaisePropertyChanged();
-                Debug.WriteLine(Name);
             }
         }
         public Difficulty Difficulty
@@ -28,7 +27,6 @@ namespace Lab_3.ViewModel
             {
                 model.Difficulty = value;
                 RaisePropertyChanged();
-                Debug.WriteLine(Difficulty);
             }
         }
         public int TimeLimitInSeconds
@@ -38,7 +36,6 @@ namespace Lab_3.ViewModel
             {
                 model.TimeLimitInSeconds = value;
                 RaisePropertyChanged();
-                Debug.WriteLine(TimeLimitInSeconds);
             }
         }
         public ObservableCollection<Question> Questions { get; }
@@ -48,13 +45,11 @@ namespace Lab_3.ViewModel
         {
             this.model = model;
             Questions = new ObservableCollection<Question>(model.Questions);
-
-            AddQuestionPackCommand = new DelegateCommand(AddQuestionPack);
         }
 
-        private void AddQuestionPack(object obj)
+        public override string ToString()
         {
-            
+            return Name;
         }
     }
 }

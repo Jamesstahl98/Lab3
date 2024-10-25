@@ -30,27 +30,5 @@ namespace Lab_3.Views
             MainWindow.configuratorView.Visibility = System.Windows.Visibility.Visible;
             MainWindow.playerView.Visibility = System.Windows.Visibility.Collapsed;
         }
-
-        private void OpenCreateNewPackDialog(object sender, System.Windows.RoutedEventArgs e)
-        {
-            CreateNewPackDialog dialog = new CreateNewPackDialog();
-            bool? dialogResult = dialog.ShowDialog();
-
-            if (dialogResult == true)
-            {
-                (MainWindow.DataContext as MainWindowViewModel).Packs.Add(dialog.DataContext as QuestionPackViewModel);
-            }
-        }
-
-        private void OpenPackOptionsDialog(object sender, System.Windows.RoutedEventArgs e)
-        {
-            PackOptionsDialog dialog = new PackOptionsDialog();
-            bool? dialogResult = dialog.ShowDialog();
-
-            if(dialogResult == true)
-            {
-                
-            }
-        }
     }
 }

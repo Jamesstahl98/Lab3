@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              xmlns:local="clr-namespace:Lab_3.Views"
+             xmlns:viewModels="clr-namespace:Lab_3.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewModels:MainWindowViewModel/>
+    </UserControl.DataContext>
     <UserControl.Resources>
         <Style TargetType="Grid">
             <Setter Property="Background" Value ="#202020"/>
@@ -18,7 +22,7 @@
             <Setter Property="BorderBrush" Value ="Black"/>
         </Style>
     </UserControl.Resources>
-    
+
     <Grid>
         <Menu HorizontalContentAlignment="Left"
               VerticalAlignment="Top"
@@ -26,11 +30,13 @@
               BorderBrush="Black"
               Foreground="White">
             <MenuItem Header="_File">
-                <MenuItem Header="_New Question Pack"
-                          Icon="{fa:Icon FolderPlus}"
-                          Click="OpenCreateNewPackDialog"/>
+                <MenuItem DataContext="{Binding ConfigurationViewModel}"
+                          Command="{Binding AddQuestionPackCommand}"
+                          Header="_New Question Pack"
+                          Icon="{fa:Icon FolderPlus}"/>
                 <MenuItem Header="_Select Question Pack"
-                          Icon="{fa:Icon FolderOpen}"/>
+                          Icon="{fa:Icon FolderOpen}"
+                          ItemsSource="{Binding Packs}"/>
                 <MenuItem Header="_Delete Question Pack"
                           Icon="{fa:Icon FolderMinus}"/>
                 <MenuItem Header="_Import Questions"
@@ -39,7 +45,7 @@
                 <MenuItem Header="E_xit"
                           Icon="{fa:Icon DoorOpen}"/>
             </MenuItem>
-            <MenuItem Header="_Edit">
+            <MenuItem Header="_Edit" DataContext="{Binding ConfigurationViewModel}">
                 <MenuItem Header="_Add Question"
                           Icon="{fa:Icon Plus}"
                           Command="{Binding AddQuestionCommand}"/>

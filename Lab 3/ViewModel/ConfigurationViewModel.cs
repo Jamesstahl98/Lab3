@@ -4,6 +4,7 @@ using Lab_3.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Lab_3.ViewModel
 {
     internal class ConfigurationViewModel : ViewModelBase
     {
-        public readonly MainWindowViewModel? mainWindowViewModel;
+        private readonly MainWindowViewModel? mainWindowViewModel;
         private Question? _activeQuestion;
 
         public DelegateCommand AddQuestionCommand { get; }
@@ -35,6 +36,17 @@ namespace Lab_3.ViewModel
             AddQuestionCommand = new DelegateCommand(AddQuestion);
             RemoveQuestionCommand = new DelegateCommand(RemoveQuestion);
             AddQuestionPackCommand = new DelegateCommand(AddQuestionPack);
+
+            this.mainWindowViewModel.PropertyChanged += MainWindowViewModel_PropertyChanged;
+        }
+
+        private void MainWindowViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            // When ActivePack changes in mainWindowViewModel, notify the UI
+            if (e.PropertyName == nameof(MainWindowViewModel.ActivePack))
+            {
+                RaisePropertyChanged(nameof(ActivePack));
+            }
         }
 
         private void AddQuestionPack(object obj)

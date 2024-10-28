@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              xmlns:local="clr-namespace:Lab_3.Views"
+             xmlns:converters="clr-namespace:Lab_3.Converters"
              DataContext="{Binding ConfigurationViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="900">
@@ -26,6 +27,7 @@
             <Setter Property="Margin" Value ="20,10,0,0"/>
             <Setter Property="FontWeight" Value ="Bold"/>
         </Style>
+        <converters:NullVisibilityConverter x:Key="NullToVisibilityConverter"/>
     </UserControl.Resources>
     
     <Grid>
@@ -58,7 +60,7 @@
             <ListView Grid.Row="1"
                       Margin="20,0"
                       Background="#3d3d3d"
-                      ItemsSource="{Binding ActivePack.Questions}"
+                      ItemsSource="{Binding ActivePack.Questions, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding ActiveQuestion, Mode=TwoWay}">
             </ListView>
         </StackPanel>
@@ -69,7 +71,8 @@
                     Margin="-2.5,20">
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
         </StackPanel>
-        <StackPanel Grid.Row="1"
+        <StackPanel Visibility="{Binding ActiveQuestion, Converter={StaticResource NullToVisibilityConverter}}"
+                    Grid.Row="1"
                     Grid.Column="1">
             <Label Content="Question:"/>
             <TextBox Text="{Binding ActiveQuestion.Query}"

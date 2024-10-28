@@ -26,6 +26,7 @@ namespace Lab_3.ViewModel
         public PlayerViewModel PlayerViewModel { get; }
         public ConfigurationViewModel ConfigurationViewModel { get; }
         public DelegateCommand ChangeActivePackCommand { get; }
+        public DelegateCommand RemoveActivePackCommand { get; }
 
         public MainWindowViewModel()
         {
@@ -37,6 +38,16 @@ namespace Lab_3.ViewModel
             Packs.Add(ActivePack);
 
             ChangeActivePackCommand = new DelegateCommand(ChangeActivePack);
+            RemoveActivePackCommand = new DelegateCommand(RemoveActivePack);
+        }
+
+        private void RemoveActivePack(object obj)
+        {
+            if(ActivePack != null)
+            {
+                Packs.Remove(ActivePack);
+                ActivePack = Packs.FirstOrDefault();
+            }
         }
 
         private void ChangeActivePack(object obj)

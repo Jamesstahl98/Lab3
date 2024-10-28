@@ -51,6 +51,7 @@ namespace Lab_3.ViewModel
         private void AddQuestionPack(object obj)
         {
             //Figure out MVVM way to do this
+            //Should this be moved to MainWindowViewModel?
             var newPack = new CreateNewPackDialog();
             bool? result = newPack.ShowDialog();
             if(result == true)
@@ -62,11 +63,13 @@ namespace Lab_3.ViewModel
 
         private void RemoveQuestion(object obj)
         {
+            if (ActivePack == null) { return; }
             ActivePack.Questions.Remove(ActiveQuestion);
         }
 
         private void AddQuestion(object obj)
         {
+            if(ActivePack == null) { return; }
             var newQuestion = new Model.Question();
             ActivePack.Questions.Add(newQuestion);
             ActiveQuestion = newQuestion;

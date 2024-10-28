@@ -42,7 +42,6 @@ namespace Lab_3.ViewModel
 
         private void MainWindowViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            // When ActivePack changes in mainWindowViewModel, notify the UI
             if (e.PropertyName == nameof(MainWindowViewModel.ActivePack))
             {
                 RaisePropertyChanged(nameof(ActivePack));
@@ -68,9 +67,9 @@ namespace Lab_3.ViewModel
 
         private void AddQuestion(object obj)
         {
-            //Should this somehow be moved up to QuestionPack class
-            ActivePack.Questions.Add(new Model.Question());
-            Debug.WriteLine(ActivePack.Name);
+            var newQuestion = new Model.Question();
+            ActivePack.Questions.Add(newQuestion);
+            ActiveQuestion = newQuestion;
         }
     }
 }

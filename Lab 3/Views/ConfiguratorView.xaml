@@ -59,7 +59,7 @@
                       Margin="20,0"
                       Background="#3d3d3d"
                       ItemsSource="{Binding ActivePack.Questions}"
-                      SelectedItem="{Binding ActiveQuestion, Mode=OneWayToSource}">
+                      SelectedItem="{Binding ActiveQuestion, Mode=TwoWay}">
             </ListView>
         </StackPanel>
         <StackPanel Orientation="Horizontal"

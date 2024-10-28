@@ -37,6 +37,7 @@
                           Command="{Binding ChangeActivePackCommand}">
                     <MenuItem.ItemContainerStyle>
                         <Style TargetType="{x:Type MenuItem}">
+                            <Setter Property="Header" Value="{Binding Name}"/>
                             <Setter Property="Command" Value="{Binding DataContext.ChangeActivePackCommand, 
                                 RelativeSource={RelativeSource Mode=FindAncestor, 
                                 AncestorType={x:Type MenuItem}, 
@@ -63,6 +64,7 @@
                           Icon="{fa:Icon Minus}"
                           Command="{Binding RemoveQuestionCommand}"/>
                 <MenuItem Header="_Pack Options"
+                          Click="OpenPackOptions"
                           Icon="{fa:Icon Sliders}"/>
             </MenuItem>
             <MenuItem Header="_View">

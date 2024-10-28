@@ -22,6 +22,7 @@ namespace Lab_3.Dialogs
         public PackOptionsDialog()
         {
             InitializeComponent();
+            DataContext = (App.Current.MainWindow as MainWindow).DataContext;
         }
     }
 }

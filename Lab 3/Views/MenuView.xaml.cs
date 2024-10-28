@@ -30,5 +30,11 @@ namespace Lab_3.Views
             MainWindow.configuratorView.Visibility = System.Windows.Visibility.Visible;
             MainWindow.playerView.Visibility = System.Windows.Visibility.Collapsed;
         }
+
+        private void OpenPackOptions(object sender, RoutedEventArgs e)
+        {
+            var packOptionsDialog = new PackOptionsDialog();
+            packOptionsDialog.ShowDialog();
+        }
     }
 }

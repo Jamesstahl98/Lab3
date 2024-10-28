@@ -61,7 +61,12 @@
                       Margin="20,0"
                       Background="#3d3d3d"
                       ItemsSource="{Binding ActivePack.Questions, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding ActiveQuestion, Mode=TwoWay}">
+                      SelectedItem="{Binding ActiveQuestion}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Query, UpdateSourceTrigger=PropertyChanged}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
         <StackPanel Orientation="Horizontal"

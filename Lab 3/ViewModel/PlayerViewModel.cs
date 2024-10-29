@@ -23,9 +23,19 @@ namespace Lab_3.ViewModel
         private int _questionCount;
         private bool _quizOngoing;
         private int _correctGuesses;
+        private int _questionPackQuestionCount;
 
         public ObservableCollection<bool?> RevealedAnswers { get; private set; }
         public DelegateCommand PlayerGuessCommand { get; private set; }
+        public int QuestionPackQuestionCount
+        {
+            get => _questionPackQuestionCount;
+            set
+            {
+                _questionPackQuestionCount = value;
+                RaisePropertyChanged();
+            }
+        }
         public bool QuizOngoing 
         {
             get => _quizOngoing;
@@ -108,6 +118,7 @@ namespace Lab_3.ViewModel
         {
             QuizOngoing = true;
             ActivePack = questionPackViewModel;
+            QuestionPackQuestionCount = ActivePack.Questions.Count;
             ActiveQuestion = ActivePack.Questions[0];
             QuestionCount = 0;
             CorrectGuesses = 0;
@@ -173,7 +184,7 @@ namespace Lab_3.ViewModel
 
             await WaitMilliseconds(2000);
 
-            if (ActivePack.Questions.Count <= _questionCount)
+            if (QuestionPackQuestionCount <= _questionCount)
             {
                 StopQuiz();
                 return;

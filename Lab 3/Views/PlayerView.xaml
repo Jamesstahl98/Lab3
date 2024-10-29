@@ -50,6 +50,15 @@
             <Label Content="{Binding ActiveQuestion.Query}"
                    FontSize="32"
                    HorizontalAlignment="Center"/>
+            <TextBlock Foreground="White"
+                       HorizontalAlignment="Center">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="Question {0} of {1}">
+                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=local:PlayerView}" Path="DataContext.QuestionCount" />
+                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=local:PlayerView}" Path="DataContext.QuestionPackQuestionCount" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
         </StackPanel>
         <Grid Grid.Row="1"
               Visibility="{Binding QuizOngoing, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -150,6 +159,16 @@
             <Label Content="Complete!"
                    HorizontalAlignment="Center"
                    FontSize="26"/>
+            <TextBlock
+                       HorizontalAlignment="Center"
+                       Foreground="White">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="You got {0} out of {1} answers correct!">
+                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=local:PlayerView}" Path="DataContext.CorrectGuesses" />
+                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=local:PlayerView}" Path="DataContext.QuestionCount" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
         </StackPanel>
         <Button Visibility="{Binding QuizOngoing, Converter={StaticResource ReverseBooleanToVisibilityConverter}}"
                 Content="Restart"

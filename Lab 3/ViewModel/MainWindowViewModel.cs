@@ -27,6 +27,7 @@ namespace Lab_3.ViewModel
         public ConfigurationViewModel ConfigurationViewModel { get; }
         public DelegateCommand ChangeActivePackCommand { get; }
         public DelegateCommand RemoveActivePackCommand { get; }
+        public DelegateCommand GoToPlayerViewCommand { get; }
 
         public MainWindowViewModel()
         {
@@ -39,6 +40,12 @@ namespace Lab_3.ViewModel
 
             ChangeActivePackCommand = new DelegateCommand(ChangeActivePack);
             RemoveActivePackCommand = new DelegateCommand(RemoveActivePack);
+            GoToPlayerViewCommand = new DelegateCommand(GoToPlayerView);
+        }
+
+        private void GoToPlayerView(object obj)
+        {
+            PlayerViewModel.StartQuiz(ActivePack);
         }
 
         private void RemoveActivePack(object obj)

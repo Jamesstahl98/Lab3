@@ -71,6 +71,7 @@
             <MenuItem Header="_View">
                 <MenuItem Header="_Play"
                           Icon="{fa:Icon Play}"
+                          Command="{Binding GoToPlayerViewCommand}"
                           Click="GoToPlayerView"/>
                 <MenuItem Header="E_dit"
                           Icon="{fa:Icon Gears}"

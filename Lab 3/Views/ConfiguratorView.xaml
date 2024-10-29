@@ -86,19 +86,19 @@
             
             <Label Content="Correct Answer:"/>
             <TextBox Margin="20,0"
-                     Text="{Binding ActiveQuestion.CorrectAnswer}"/>
+                     Text="{Binding ActiveQuestion.CorrectAnswer, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Content="First Incorrect Answer:"/>
             <TextBox Margin="20,0"
-                     Text="{Binding ActiveQuestion.IncorrectAnswers[0]}"/>
+                     Text="{Binding ActiveQuestion.IncorrectAnswers[0], UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Content="Second Incorrect Answer:"/>
             <TextBox Margin="20,0"
-                     Text="{Binding ActiveQuestion.IncorrectAnswers[1]}"/>
+                     Text="{Binding ActiveQuestion.IncorrectAnswers[1], UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Content="Third Incorrect Answer:"/>
             <TextBox Margin="20,0"
-                     Text="{Binding ActiveQuestion.IncorrectAnswers[2]}"/>
+                     Text="{Binding ActiveQuestion.IncorrectAnswers[2], UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
     </Grid>
 </UserControl>

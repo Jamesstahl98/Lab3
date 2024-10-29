@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Lab_3.Views"
+             xmlns:converters="clr-namespace:Lab_3.Converters"
              DataContext="{Binding PlayerViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="800">
@@ -20,13 +21,14 @@
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value ="#202020"/>
         </Style>
+        <converters:IntToStringConverter x:Key="IntToStringConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label Content="20"
+        <Label Content="{Binding TimeLeft, Converter={StaticResource IntToStringConverter}}"
                Grid.Row="0"
                HorizontalAlignment="Right"
                VerticalAlignment="Top"
@@ -52,25 +54,34 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Row="0"
+            <Button Command="{Binding PlayerGuessCommand}"
+                    CommandParameter="{Binding Answers[0]}"
+                    Grid.Row="0"
                     Grid.Column="0"
                     Margin="127,16,73,16">
-                <TextBlock Text="Question One" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding Answers[0]}" 
+                           TextWrapping="Wrap"/>
             </Button>
-            <Button Grid.Row="0"
+            <Button Command="{Binding PlayerGuessCommand}"
+                    CommandParameter="{Binding Answers[1]}"
+                    Grid.Row="0"
                     Grid.Column="1"
                     Margin="73,16,127,16">
-                <TextBlock Text="Question Two" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding Answers[1]}" TextWrapping="Wrap"/>
             </Button>
-            <Button Grid.Row="1"
+            <Button Command="{Binding PlayerGuessCommand}"
+                    CommandParameter="{Binding Answers[2]}"
+                    Grid.Row="1"
                     Grid.Column="0"
                     Margin="127,16,73,16">
-                <TextBlock Text="Question Three" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding Answers[2]}" TextWrapping="Wrap"/>
             </Button>
-            <Button Grid.Row="1"
+            <Button Command="{Binding PlayerGuessCommand}"
+                    CommandParameter="{Binding Answers[3]}"
+                    Grid.Row="1"
                     Grid.Column="1"
                     Margin="73,16,127,16">
-                <TextBlock Text="Question Four" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding Answers[3]}" TextWrapping="Wrap"/>
             </Button>
         </Grid>
     </Grid>

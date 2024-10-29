@@ -21,7 +21,14 @@
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value ="#202020"/>
         </Style>
+        <Style TargetType="Image">
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="Height" Value="50"/>
+        </Style>
         <converters:IntToStringConverter x:Key="IntToStringConverter"/>
+        <converters:NullVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -37,10 +44,10 @@
         <StackPanel Grid.Row="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-            <Label Content="This is a question"
+            <Label Content="{Binding ActiveQuestion.Query}"
                    FontSize="32"
                    HorizontalAlignment="Center"/>
-            <Label Content="Question x out of x"
+            <Label Content="{Binding QuestionCount, Converter={StaticResource IntToStringConverter}}"
                    FontSize="16"
                    HorizontalAlignment="Center"
                    Margin="0"/>
@@ -62,27 +69,81 @@
                 <TextBlock Text="{Binding Answers[0]}" 
                            TextWrapping="Wrap"/>
             </Button>
+            <Image Source="../Assets/correct.png"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Margin="-73,0,73,0"
+                   Visibility="{Binding RevealedAnswers[0], 
+                                Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Image Source="../Assets/incorrect.png"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Margin="-73,0,73,0"
+                   Visibility="{Binding RevealedAnswers[0], 
+                                Converter={StaticResource ReverseBooleanToVisibilityConverter}}"/>
+
             <Button Command="{Binding PlayerGuessCommand}"
                     CommandParameter="{Binding Answers[1]}"
                     Grid.Row="0"
                     Grid.Column="1"
                     Margin="73,16,127,16">
-                <TextBlock Text="{Binding Answers[1]}" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding Answers[1]}"
+                           TextWrapping="Wrap"/>
             </Button>
+            <Image Source="../Assets/correct.png"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="-180,0,73,0"
+                    Visibility="{Binding RevealedAnswers[1], 
+                                 Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Image Source="../Assets/incorrect.png"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   Margin="-180,0,73,0"
+                   Visibility="{Binding RevealedAnswers[1], 
+                                Converter={StaticResource ReverseBooleanToVisibilityConverter}}"/>
+
             <Button Command="{Binding PlayerGuessCommand}"
                     CommandParameter="{Binding Answers[2]}"
                     Grid.Row="1"
                     Grid.Column="0"
                     Margin="127,16,73,16">
-                <TextBlock Text="{Binding Answers[2]}" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding Answers[2]}"
+                           TextWrapping="Wrap"/>
             </Button>
+            <Image Source="../Assets/correct.png"
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   Margin="-73,0,73,0"
+                   Visibility="{Binding RevealedAnswers[2], 
+                                Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Image Source="../Assets/incorrect.png"
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   Margin="-73,0,73,0"
+                   Visibility="{Binding RevealedAnswers[2], 
+                                Converter={StaticResource ReverseBooleanToVisibilityConverter}}"/>
+
             <Button Command="{Binding PlayerGuessCommand}"
                     CommandParameter="{Binding Answers[3]}"
                     Grid.Row="1"
                     Grid.Column="1"
                     Margin="73,16,127,16">
-                <TextBlock Text="{Binding Answers[3]}" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding Answers[3]}"
+                           TextWrapping="Wrap"/>
             </Button>
+            <Image Source="../Assets/correct.png"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Margin="-180,0,73,0"
+                   Visibility="{Binding RevealedAnswers[3], 
+                                Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Image Source="../Assets/incorrect.png"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="-180,0,73,0"
+                    Visibility="{Binding RevealedAnswers[3], 
+                                 Converter={StaticResource ReverseBooleanToVisibilityConverter}}"/>
         </Grid>
     </Grid>
 </UserControl>

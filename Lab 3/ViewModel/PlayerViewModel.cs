@@ -2,6 +2,7 @@
 using Lab_3.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -16,13 +17,34 @@ namespace Lab_3.ViewModel
     {
         private readonly MainWindowViewModel? mainWindowViewModel;
         private DispatcherTimer timer;
-        private int questionCount = 0;
         private int _timeLeft;
         private string[] _answers;
+        private Question _activeQuestion;
+        private int _questionCount;
+
+        public ObservableCollection<bool?> RevealedAnswers { get; private set; }
 
         public DelegateCommand PlayerGuessCommand { get; private set; }
+        public Question ActiveQuestion
+        {
+            get => _activeQuestion;
+            private set
+            { 
+                _activeQuestion = value;
+                RaisePropertyChanged();
+            }
+        }
+        public int QuestionCount
+        {
+            get => _questionCount;
+            private set
+            {
+                _questionCount = value;
+                RaisePropertyChanged();
+            }
+        }
+        public int CorrectGuesses { get; private set; }
         public QuestionPackViewModel ActivePack { get; set; }
-        public Question ActiveQuestion { get; private set; }
         public string[] Answers
         {
             get => _answers;
@@ -32,7 +54,6 @@ namespace Lab_3.ViewModel
                 RaisePropertyChanged();
             }
         }
-
         public int TimeLeft
         {
             get => _timeLeft;
@@ -50,6 +71,12 @@ namespace Lab_3.ViewModel
 
         public PlayerViewModel(MainWindowViewModel? mainWindowViewModel)
         {
+            RevealedAnswers = new ObservableCollection<bool?>();
+            for (int i = 0; i < 4; i++)
+            {
+                RevealedAnswers.Add(null);
+            }
+
             this.mainWindowViewModel = mainWindowViewModel;
 
             timer = new DispatcherTimer();
@@ -63,11 +90,20 @@ namespace Lab_3.ViewModel
         {
             ActivePack = questionPackViewModel;
             ActiveQuestion = ActivePack.Questions[0];
+            QuestionCount = 0;
+            CorrectGuesses = 0;
+
             StartQuestion(ActiveQuestion);
         }
 
         private void StartQuestion(Question question)
         {
+            QuestionCount++;
+            for (int i = 0; i < RevealedAnswers.Count; i++)
+            {
+                RevealedAnswers[i] = null;
+            }
+
             Answers = new string[4];
             Answers[0] = question.CorrectAnswer;
             for (int i = 0; i < question.IncorrectAnswers.Length; i++)
@@ -94,32 +130,36 @@ namespace Lab_3.ViewModel
         private void PlayerGuess(object obj)
         {
             StopTimer();
-            Debug.WriteLine(obj.GetType());
+
             RevealCorrectAnswer(obj.ToString());
         }
 
-        private void RevealCorrectAnswer(string? playerGuess)
+        private async void RevealCorrectAnswer(string? playerGuess)
         {
-            if(playerGuess == null)
+            if(playerGuess == ActiveQuestion.CorrectAnswer)
             {
-                Debug.WriteLine("Wrong");
+                CorrectGuesses++;
             }
-            else if (ActiveQuestion.CorrectAnswer == playerGuess)
+            for (int i = 0; i < Answers.Length; i++)
             {
-                Debug.WriteLine("Correct");
-            }
-            else
-            {
-                Debug.WriteLine("Wrong");
+                if (Answers[i] == ActiveQuestion.CorrectAnswer)
+                {
+                    RevealedAnswers[i] = true;
+                }
+                if(playerGuess == Answers[i] && playerGuess != ActiveQuestion.CorrectAnswer)
+                {
+                    RevealedAnswers[i] = false;
+                }
             }
 
-            questionCount++;
-            if (ActivePack.Questions.Count <= questionCount)
+            await WaitMilliseconds(2000);
+
+            if (ActivePack.Questions.Count <= _questionCount)
             {
                 StopQuiz();
                 return;
             }
-            ActiveQuestion = ActivePack.Questions[questionCount];
+            ActiveQuestion = ActivePack.Questions[_questionCount];
             StartQuestion(ActiveQuestion);
         }
 
@@ -136,6 +176,11 @@ namespace Lab_3.ViewModel
         private void StopTimer()
         {
             timer.Stop();
+        }
+
+        private static async Task WaitMilliseconds(int milliseconds)
+        {
+            await Task.Delay(milliseconds);
         }
     }
 }

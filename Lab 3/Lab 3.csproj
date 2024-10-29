@@ -10,7 +10,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\correct.png" />
+    <None Remove="Assets\incorrect.png" />
+    <None Remove="Assets\letter-q.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FontAwesome.Sharp" Version="6.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\correct.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\incorrect.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\letter-q.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

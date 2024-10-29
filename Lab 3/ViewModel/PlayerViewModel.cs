@@ -21,10 +21,20 @@ namespace Lab_3.ViewModel
         private string[] _answers;
         private Question _activeQuestion;
         private int _questionCount;
+        private bool _quizOngoing;
+        private int _correctGuesses;
 
         public ObservableCollection<bool?> RevealedAnswers { get; private set; }
-
         public DelegateCommand PlayerGuessCommand { get; private set; }
+        public bool QuizOngoing 
+        {
+            get => _quizOngoing;
+            private set
+            {
+                _quizOngoing = value;
+                RaisePropertyChanged();
+            }
+        }
         public Question ActiveQuestion
         {
             get => _activeQuestion;
@@ -43,7 +53,15 @@ namespace Lab_3.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public int CorrectGuesses { get; private set; }
+        public int CorrectGuesses
+        {
+            get => _correctGuesses;
+            private set
+            {
+                _correctGuesses = value;
+                RaisePropertyChanged();
+            }
+        }
         public QuestionPackViewModel ActivePack { get; set; }
         public string[] Answers
         {
@@ -88,6 +106,7 @@ namespace Lab_3.ViewModel
 
         public void StartQuiz(QuestionPackViewModel questionPackViewModel)
         {
+            QuizOngoing = true;
             ActivePack = questionPackViewModel;
             ActiveQuestion = ActivePack.Questions[0];
             QuestionCount = 0;
@@ -165,7 +184,7 @@ namespace Lab_3.ViewModel
 
         private void StopQuiz()
         {
-
+            QuizOngoing = false;
         }
 
         private void Timer_Tick(object? sender, EventArgs e)

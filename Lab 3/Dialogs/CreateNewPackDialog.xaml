@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:converters="clr-namespace:Lab_3.Converters"
         xmlns:local="clr-namespace:Lab_3.Dialogs"
         mc:Ignorable="d"
         Title="New Question Pack" Height="270" Width="200">
@@ -21,16 +21,10 @@
             <Setter Property="Foreground" Value ="#202020"/>
         </Style>
         <Style TargetType="ComboBox">
-            <Setter Property="Background" Value ="#202020"/>
-            <Setter Property="Foreground" Value ="White"/>
+            <Setter Property="Background" Value ="White"/>
+            <Setter Property="Foreground" Value ="#202020"/>
         </Style>
-        <ObjectDataProvider x:Key="enumToIndex"
-                            MethodName="GetDifficultyIndex" 
-                            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="{Binding Difficulty}"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+        <converters:EnumToIntConverter x:Key="EnumToIntConverter"/>
     </Window.Resources>
     <Grid>
         <StackPanel>
@@ -41,8 +35,7 @@
             <Label Content="Difficulty:"/>
             <ComboBox x:Name="difficulty"
                       Margin="20,0"
-                      Foreground="#202020"
-                      SelectedIndex="{Binding Difficulty}">
+                      SelectedIndex="{Binding Difficulty, Converter={StaticResource EnumToIntConverter}}">
                 <ComboBoxItem Content="Easy"/>
                 <ComboBoxItem Content="Medium"/>
                 <ComboBoxItem Content="Hard"/>

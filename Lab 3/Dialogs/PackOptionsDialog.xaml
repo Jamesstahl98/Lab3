@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:Lab_3.Converters"
         xmlns:local="clr-namespace:Lab_3.Dialogs"
         mc:Ignorable="d"
         Title="Pack Options" Height="240" Width="200">
@@ -12,8 +13,18 @@
         </Style>
         <Style TargetType="Label">
             <Setter Property="Margin" Value ="10,10,10,0"/>
+            <Setter Property="FontWeight" Value ="Bold"/>
             <Setter Property="Foreground" Value ="White"/>
         </Style>
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Background" Value ="White"/>
+            <Setter Property="Foreground" Value ="#202020"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value ="White"/>
+            <Setter Property="Foreground" Value ="#202020"/>
+        </Style>
+        <converters:EnumToIntConverter x:Key="EnumToIntConverter"/>
     </Window.Resources>
     <Grid>
         <StackPanel>
@@ -22,7 +33,7 @@
                      Margin="20,0"/>
             <Label Content="Difficulty:"/>
             <ComboBox Margin="20,0"
-                      SelectedIndex="{Binding ActivePack.Diffulty}">
+                      SelectedIndex="{Binding ActivePack.Difficulty, Converter={StaticResource EnumToIntConverter}}">
                 <ComboBoxItem Content="Easy"/>
                 <ComboBoxItem Content="Medium"/>
                 <ComboBoxItem Content="Hard"/>

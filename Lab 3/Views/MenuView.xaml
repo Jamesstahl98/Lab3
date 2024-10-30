@@ -77,6 +77,7 @@
                           Icon="{fa:Icon Gears}"
                           Click="GoToConfiguratorView"/>
                 <MenuItem Header="_Fullscreen"
+						  Click="ChangeWindowState"
                           Icon="{fa:Icon Expand}"/>
             </MenuItem>
         </Menu>

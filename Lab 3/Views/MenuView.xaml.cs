@@ -36,5 +36,17 @@ namespace Lab_3.Views
             var packOptionsDialog = new PackOptionsDialog();
             packOptionsDialog.ShowDialog();
         }
+
+        private void ChangeWindowState(object sender, RoutedEventArgs e)
+        {
+            if (MainWindow.WindowState == WindowState.Maximized)
+            {
+                MainWindow.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                MainWindow.WindowState = WindowState.Maximized;
+            }
+        }
     }
 }

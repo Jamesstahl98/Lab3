@@ -27,6 +27,7 @@ namespace Lab_3.ViewModel
             {
                 _activeQuestion = value;
                 RaisePropertyChanged();
+                RemoveQuestionCommand.RaiseCanExecuteChanged();
             }
         }
         public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)
@@ -34,7 +35,7 @@ namespace Lab_3.ViewModel
             this.mainWindowViewModel = mainWindowViewModel;
 
             AddQuestionCommand = new DelegateCommand(AddQuestion);
-            RemoveQuestionCommand = new DelegateCommand(RemoveQuestion);
+            RemoveQuestionCommand = new DelegateCommand(RemoveQuestion, canRemove => ActiveQuestion != null);
             AddQuestionPackCommand = new DelegateCommand(AddQuestionPack);
 
             this.mainWindowViewModel.PropertyChanged += MainWindowViewModel_PropertyChanged;
@@ -63,7 +64,6 @@ namespace Lab_3.ViewModel
 
         private void RemoveQuestion(object obj)
         {
-            if (ActivePack == null) { return; }
             ActivePack.Questions.Remove(ActiveQuestion);
         }
 

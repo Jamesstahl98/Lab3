@@ -30,13 +30,25 @@
                 <MenuItem Click="OpenNewPackDialog"
                           Header="_New Question Pack"
                           Icon="{fa:Icon FolderPlus}"/>
+                
                 <MenuItem Header="_Select Question Pack"
                           Icon="{fa:Icon FolderOpen}"
                           ItemsSource="{Binding Packs}"
                           Command="{Binding ChangeActivePackCommand}">
                     <MenuItem.ItemContainerStyle>
                         <Style TargetType="{x:Type MenuItem}">
-                            <Setter Property="Header" Value="{Binding Name}"/>
+                            <Setter Property="Header">
+                                <Setter.Value>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} ({1})">
+                                                <Binding Path="Name" />
+                                                <Binding Path="Difficulty" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </Setter.Value>
+                            </Setter>
                             <Setter Property="Command" Value="{Binding DataContext.ChangeActivePackCommand, 
                                 RelativeSource={RelativeSource Mode=FindAncestor, 
                                 AncestorType={x:Type MenuItem}, 
@@ -47,6 +59,7 @@
                         </Style>
                     </MenuItem.ItemContainerStyle>
                 </MenuItem>
+                
                 <MenuItem Header="_Delete Question Pack"
                           Click="OpenDeleteQuestionPackDialog"
                           IsEnabled="{Binding CanRemoveQuestionPack}"
@@ -57,24 +70,30 @@
                 <MenuItem Header="E_xit"
                           Icon="{fa:Icon DoorOpen}"/>
             </MenuItem>
+            
             <MenuItem Header="_Edit" DataContext="{Binding ConfigurationViewModel}">
                 <MenuItem Header="_Add Question"
                           Icon="{fa:Icon Plus}"
                           Command="{Binding AddQuestionCommand}"/>
+                
                 <MenuItem Header="_Remove Question"
                           Icon="{fa:Icon Minus}"
                           Command="{Binding RemoveQuestionCommand}"/>
+                
                 <MenuItem Header="_Pack Options"
                           Click="OpenPackOptions"
                           Icon="{fa:Icon Sliders}"/>
             </MenuItem>
+            
             <MenuItem Header="_View">
                 <MenuItem Header="_Play"
                           Icon="{fa:Icon Play}"
                           Command="{Binding GoToPlayerViewCommand}"/>
+                
                 <MenuItem Header="E_dit"
                           Command="{Binding GoToConfigurationViewCommand}"
                           Icon="{fa:Icon Gears}"/>
+                
                 <MenuItem Header="_Fullscreen"
 						  Click="ChangeWindowState"
                           Icon="{fa:Icon Expand}"/>

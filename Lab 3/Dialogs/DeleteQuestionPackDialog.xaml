@@ -24,7 +24,8 @@
     <Grid>
         <Grid>
             <StackPanel>
-                <TextBlock Text="{Binding ActivePack.Name, StringFormat='Are you sure you want to delete {0}?'}" />
+                <TextBlock Text="{Binding ActivePack.Name,
+                    StringFormat='Are you sure you want to delete {0}?'}"/>
 
             <DockPanel HorizontalAlignment="Center"
                        VerticalAlignment="Bottom"

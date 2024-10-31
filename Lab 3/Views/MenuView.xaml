@@ -13,10 +13,21 @@
             <Setter Property="Background" Value ="#202020"/>
         </Style>
         <Style TargetType="MenuItem">
-            <Setter Property="Foreground" Value ="White"/>
-            <Setter Property="Background" Value ="#3d3d3d"/>
-            <Setter Property="Padding" Value ="4,0"/>
             <Setter Property="BorderBrush" Value ="Black"/>
+            <Setter Property="Padding" Value ="4,0"/>
+            <Style.Triggers>
+                <Trigger Property="IsHighlighted" Value="False">
+                    <Setter Property="Foreground" Value ="AliceBlue"/>
+                    <Setter Property="Background" Value ="#3d3d3d"/>
+                </Trigger>
+                <Trigger Property="IsHighlighted" Value="True">
+                    <Setter Property="Foreground" Value ="Black"/>
+                    <Setter Property="Background" Value ="AliceBlue"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Separator">
+            <Setter Property="Foreground" Value="Black"/>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -25,7 +36,8 @@
               Background="#3d3d3d"
               BorderBrush="Black"
               Foreground="White">
-            <MenuItem Header="_File">
+            <MenuItem Header="_File"
+                      Foreground="AliceBlue">
                 <MenuItem Click="OpenNewPackDialog"
                           Header="_New Question Pack"
                           Icon="{fa:Icon FolderPlus}"/>
@@ -41,8 +53,8 @@
                                     <TextBlock>
                                         <TextBlock.Text>
                                             <MultiBinding StringFormat="{}{0} ({1})">
-                                                <Binding Path="Name" />
-                                                <Binding Path="Difficulty" />
+                                                <Binding Path="Name"/>
+                                                <Binding Path="Difficulty"/>
                                             </MultiBinding>
                                         </TextBlock.Text>
                                     </TextBlock>
@@ -52,9 +64,7 @@
                                 RelativeSource={RelativeSource Mode=FindAncestor, 
                                 AncestorType={x:Type MenuItem}, 
                                 AncestorLevel=1}}" />
-                            <Setter Property="CommandParameter" Value="{Binding}" />
-                            <Setter Property="Foreground" Value="White"/>
-                            <Setter Property="Background" Value="#3d3d3d"/>
+                            <Setter Property="CommandParameter" Value="{Binding}"/>
                         </Style>
                     </MenuItem.ItemContainerStyle>
                 </MenuItem>
@@ -70,7 +80,9 @@
                           Icon="{fa:Icon DoorOpen}"/>
             </MenuItem>
             
-            <MenuItem Header="_Edit" DataContext="{Binding ConfigurationViewModel}">
+            <MenuItem Header="_Edit"
+                      Foreground="AliceBlue"
+                      DataContext="{Binding ConfigurationViewModel}">
                 <MenuItem Header="_Add Question"
                           Icon="{fa:Icon Plus}"
                           Command="{Binding AddQuestionCommand}"/>
@@ -84,7 +96,8 @@
                           Icon="{fa:Icon Sliders}"/>
             </MenuItem>
             
-            <MenuItem Header="_View">
+            <MenuItem Header="_View"
+                      Foreground="AliceBlue">
                 <MenuItem Header="_Play"
                           Icon="{fa:Icon Play}"
                           Command="{Binding GoToPlayerViewCommand}"/>

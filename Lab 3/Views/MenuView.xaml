@@ -48,7 +48,7 @@
                     </MenuItem.ItemContainerStyle>
                 </MenuItem>
                 <MenuItem Header="_Delete Question Pack"
-                          Command="{Binding RemoveActivePackCommand}"
+                          Click="OpenDeleteQuestionPackDialog"
                           Icon="{fa:Icon FolderMinus}"/>
                 <MenuItem Header="_Import Questions"
                           Icon="{fa:Icon CloudArrowDown}"/>

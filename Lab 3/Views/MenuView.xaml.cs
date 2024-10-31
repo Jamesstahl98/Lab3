@@ -42,5 +42,11 @@ namespace Lab_3.Views
             var newPack = new CreateNewPackDialog();
             newPack.ShowDialog();
         }
+
+        private void OpenDeleteQuestionPackDialog(object sender, RoutedEventArgs e)
+        {
+            var newPack = new DeleteQuestionPackDialog();
+            newPack.ShowDialog();
+        }
     }
 }

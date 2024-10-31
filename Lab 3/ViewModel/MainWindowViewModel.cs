@@ -16,7 +16,17 @@ namespace Lab_3.ViewModel
         private QuestionPackViewModel? _activePack;
         private bool _configurationViewModelActive;
         private bool _playerViewModelActive;
+        private bool _canRemove;
 
+        public bool CanRemoveQuestionPack
+        {
+            get => _canRemove;
+            set
+            {
+                _canRemove = value;
+                RaisePropertyChanged();
+            }
+        }
         public QuestionPackViewModel? ActivePack
 		{
             get => _activePack;
@@ -26,6 +36,15 @@ namespace Lab_3.ViewModel
                 RaisePropertyChanged();
                 RemoveActivePackCommand.RaiseCanExecuteChanged();
                 GoToPlayerViewCommand.RaiseCanExecuteChanged();
+
+                if(Packs.Count > 1 )
+                {
+                    CanRemoveQuestionPack = true;
+                }
+                else
+                {
+                    CanRemoveQuestionPack = false;
+                }
             }
 		}
         public bool ConfigurationViewModelActive
@@ -64,11 +83,11 @@ namespace Lab_3.ViewModel
 
             ChangeActivePackCommand = new DelegateCommand(ChangeActivePack);
             RemoveActivePackCommand = new DelegateCommand(RemoveActivePack, canRemove => Packs.Count > 1);
-            GoToPlayerViewCommand = new DelegateCommand(GoToPlayerView, canRemove => ActivePack.Questions.Count > 0);
+            GoToPlayerViewCommand = new DelegateCommand(GoToPlayerView, canPlay => ActivePack.Questions.Count > 0);
             GoToConfigurationViewCommand = new DelegateCommand(GoToConfigurationView);
 
-            ActivePack = new QuestionPackViewModel(new QuestionPack("Question Pack"));
             Packs = new ObservableCollection<QuestionPackViewModel>();
+            ActivePack = new QuestionPackViewModel(new QuestionPack("Question Pack"));
             Packs.Add(ActivePack);
         }
 

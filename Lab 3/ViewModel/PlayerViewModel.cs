@@ -27,6 +27,8 @@ namespace Lab_3.ViewModel
 
         public ObservableCollection<bool?> RevealedAnswers { get; private set; }
         public DelegateCommand PlayerGuessCommand { get; private set; }
+        public DelegateCommand RestartQuizCommand { get; }
+
         public int QuestionPackQuestionCount
         {
             get => _questionPackQuestionCount;
@@ -112,12 +114,18 @@ namespace Lab_3.ViewModel
             timer.Tick += Timer_Tick;
 
             PlayerGuessCommand = new DelegateCommand(PlayerGuess);
+            RestartQuizCommand = new DelegateCommand(RestartQuiz);
+        }
+
+        private void RestartQuiz(object obj)
+        {
+            StartQuiz(ActivePack);
         }
 
         public void StartQuiz(QuestionPackViewModel questionPackViewModel)
         {
-            QuizOngoing = true;
             ActivePack = questionPackViewModel;
+            QuizOngoing = true;
             QuestionPackQuestionCount = ActivePack.Questions.Count;
             ActiveQuestion = ActivePack.Questions[0];
             QuestionCount = 0;

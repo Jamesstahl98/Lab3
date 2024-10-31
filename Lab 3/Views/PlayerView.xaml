@@ -173,6 +173,7 @@
         <Button Visibility="{Binding QuizOngoing, Converter={StaticResource ReverseBooleanToVisibilityConverter}}"
                 Content="Restart"
                 Grid.Row="1"
-                VerticalAlignment="Top"/>
+                VerticalAlignment="Top"
+                Command="{Binding RestartQuizCommand}"/>
     </Grid>
 </UserControl>

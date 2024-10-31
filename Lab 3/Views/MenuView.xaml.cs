@@ -19,18 +19,6 @@ namespace Lab_3.Views
             InitializeComponent();
         }
 
-        private void GoToPlayerView(object sender, System.Windows.RoutedEventArgs e)
-        {
-            MainWindow.configuratorView.Visibility = System.Windows.Visibility.Collapsed;
-            MainWindow.playerView.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        private void GoToConfiguratorView(object sender, System.Windows.RoutedEventArgs e)
-        {
-            MainWindow.configuratorView.Visibility = System.Windows.Visibility.Visible;
-            MainWindow.playerView.Visibility = System.Windows.Visibility.Collapsed;
-        }
-
         private void OpenPackOptions(object sender, RoutedEventArgs e)
         {
             var packOptionsDialog = new PackOptionsDialog();

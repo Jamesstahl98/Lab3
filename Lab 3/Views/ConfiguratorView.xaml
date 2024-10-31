@@ -39,6 +39,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
         <StackPanel Grid.Row="1">
             <DockPanel Margin="30,0">
                 <Label Content="{Binding ActivePack.Name, UpdateSourceTrigger=PropertyChanged}"
@@ -57,6 +58,7 @@
                     </Button>
                 </DockPanel>
             </DockPanel>
+            
             <ListView Grid.Row="1"
                       Margin="20,0"
                       Background="#3d3d3d"
@@ -68,7 +70,9 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            
         </StackPanel>
+        
         <StackPanel Orientation="Horizontal"
                     Grid.Row="1"
                     Grid.RowSpan="1"
@@ -76,6 +80,7 @@
                     Margin="-2.5,20">
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
         </StackPanel>
+        
         <StackPanel Visibility="{Binding ActiveQuestion, Converter={StaticResource NullToVisibilityConverter}}"
                     Grid.Row="1"
                     Grid.Column="1">

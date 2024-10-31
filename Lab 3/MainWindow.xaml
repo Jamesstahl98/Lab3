@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="900">
     <Window.Resources>
-		
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
     <Window.InputBindings>
         
@@ -19,11 +19,17 @@
         </Grid.RowDefinitions>
         <local:MenuView x:Name="menuView"
                           Grid.Row="0"/>
-        <local:ConfiguratorView x:Name="configuratorView"
-                                Grid.Row="1"
-                                Visibility="Visible"/>
-        <local:PlayerView x:Name="playerView"
-                          Grid.Row="1"
-                          Visibility="Collapsed"/>
+        <local:PlayerView 
+                          Visibility="{Binding DataContext.PlayerViewModelActive,
+                                       RelativeSource={RelativeSource FindAncestor, 
+                                       AncestorType={x:Type Window}},
+                                       Converter={StaticResource BooleanToVisibilityConverter}}"
+                          Grid.Row="1"/>
+        <local:ConfiguratorView 
+                                Visibility="{Binding DataContext.ConfigurationViewModelActive,
+                                            RelativeSource={RelativeSource FindAncestor, 
+                                            AncestorType={x:Type Window}},
+                                            Converter={StaticResource BooleanToVisibilityConverter}}"
+                                Grid.Row="1"/>
     </Grid>
 </Window>

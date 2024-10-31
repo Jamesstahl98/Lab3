@@ -70,11 +70,10 @@
             <MenuItem Header="_View">
                 <MenuItem Header="_Play"
                           Icon="{fa:Icon Play}"
-                          Command="{Binding GoToPlayerViewCommand}"
-                          Click="GoToPlayerView"/>
+                          Command="{Binding GoToPlayerViewCommand}"/>
                 <MenuItem Header="E_dit"
-                          Icon="{fa:Icon Gears}"
-                          Click="GoToConfiguratorView"/>
+                          Command="{Binding GoToConfigurationViewCommand}"
+                          Icon="{fa:Icon Gears}"/>
                 <MenuItem Header="_Fullscreen"
 						  Click="ChangeWindowState"
                           Icon="{fa:Icon Expand}"/>

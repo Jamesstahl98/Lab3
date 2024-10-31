@@ -24,6 +24,10 @@
             <Setter Property="Background" Value ="White"/>
             <Setter Property="Foreground" Value ="#202020"/>
         </Style>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="#202020"/>
+            <Setter Property="Margin" Value ="20"/>
+        </Style>
         <converters:EnumToIntConverter x:Key="EnumToIntConverter"/>
     </Window.Resources>
     <Grid>
@@ -56,15 +60,10 @@
                     TickFrequency="1"
                     Value="{Binding TimeLimitInSeconds}"/>
             <DockPanel HorizontalAlignment="Center">
-                <Button x:Name="cancelButton"
-                        Content="Cancel"
-                        Foreground="#202020"
-                        Margin="20"
+                <Button Content="Cancel"
                         Click="CloseDialog"/>
-                <Button x:Name="createButton"
-                        Content="Create"
-                        Foreground="#202020"
-                        Margin="20"
+                <Button Content="Create"
+                        Command="{Binding AddQuestionPackCommand}"
                         Click="CloseDialog"/>
             </DockPanel>
         </StackPanel>

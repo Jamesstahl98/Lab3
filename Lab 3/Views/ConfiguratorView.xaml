@@ -46,7 +46,7 @@
                 <DockPanel Grid.Row="1"
                            HorizontalAlignment="Right"
                            VerticalAlignment="Top">
-                    <Button>
+                    <Button Click="OpenPackOptions">
                         <fa:IconBlock Icon="Sliders"/>
                     </Button>
                     <Button Command="{Binding AddQuestionCommand}">

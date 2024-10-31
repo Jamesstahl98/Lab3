@@ -19,7 +19,6 @@ namespace Lab_3.ViewModel
 
         public DelegateCommand AddQuestionCommand { get; }
         public DelegateCommand RemoveQuestionCommand { get; }
-        public DelegateCommand AddQuestionPackCommand { get; }
         public QuestionPackViewModel? ActivePack{ get => mainWindowViewModel.ActivePack; }
         public Question? ActiveQuestion {
             get => _activeQuestion;
@@ -36,7 +35,6 @@ namespace Lab_3.ViewModel
 
             AddQuestionCommand = new DelegateCommand(AddQuestion);
             RemoveQuestionCommand = new DelegateCommand(RemoveQuestion, canRemove => ActiveQuestion != null);
-            AddQuestionPackCommand = new DelegateCommand(AddQuestionPack);
 
             this.mainWindowViewModel.PropertyChanged += MainWindowViewModel_PropertyChanged;
         }
@@ -46,19 +44,6 @@ namespace Lab_3.ViewModel
             if (e.PropertyName == nameof(MainWindowViewModel.ActivePack))
             {
                 RaisePropertyChanged(nameof(ActivePack));
-            }
-        }
-
-        private void AddQuestionPack(object obj)
-        {
-            //Figure out MVVM way to do this
-            //Should this be moved to MainWindowViewModel?
-            var newPack = new CreateNewPackDialog();
-            bool? result = newPack.ShowDialog();
-            if(result == true)
-            {
-                mainWindowViewModel.Packs.Add(newPack.DataContext as QuestionPackViewModel);
-                mainWindowViewModel.ActivePack = mainWindowViewModel.Packs[mainWindowViewModel.Packs.Count-1];
             }
         }
 

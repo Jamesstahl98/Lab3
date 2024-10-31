@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using Lab_3.Dialogs;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Lab_3.Views
 {
@@ -10,6 +12,12 @@ namespace Lab_3.Views
         public ConfiguratorView()
         {
             InitializeComponent();
+        }
+
+        private void OpenPackOptions(object sender, RoutedEventArgs e)
+        {
+            var packOptionsDialog = new PackOptionsDialog();
+            packOptionsDialog.ShowDialog();
         }
     }
 }

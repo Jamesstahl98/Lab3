@@ -1,4 +1,5 @@
 ﻿using Lab_3.Command;
+using Lab_3.Dialogs;
 using Lab_3.Model;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace Lab_3.ViewModel
             { 
                 _activePack = value;
                 RaisePropertyChanged();
+                RemoveActivePackCommand.RaiseCanExecuteChanged();
             }
 		}
         public ObservableCollection<QuestionPackViewModel> Packs{ get; set; }
@@ -34,13 +36,13 @@ namespace Lab_3.ViewModel
             PlayerViewModel = new PlayerViewModel(this);
             ConfigurationViewModel = new ConfigurationViewModel(this);
 
+            ChangeActivePackCommand = new DelegateCommand(ChangeActivePack);
+            RemoveActivePackCommand = new DelegateCommand(RemoveActivePack, canRemove => Packs.Count > 1);
+            GoToPlayerViewCommand = new DelegateCommand(GoToPlayerView);
+
             ActivePack = new QuestionPackViewModel(new QuestionPack("Question Pack"));
             Packs = new ObservableCollection<QuestionPackViewModel>();
             Packs.Add(ActivePack);
-
-            ChangeActivePackCommand = new DelegateCommand(ChangeActivePack);
-            RemoveActivePackCommand = new DelegateCommand(RemoveActivePack);
-            GoToPlayerViewCommand = new DelegateCommand(GoToPlayerView);
         }
 
         private void GoToPlayerView(object obj)
@@ -50,11 +52,8 @@ namespace Lab_3.ViewModel
 
         private void RemoveActivePack(object obj)
         {
-            if(ActivePack != null)
-            {
-                Packs.Remove(ActivePack);
-                ActivePack = Packs.FirstOrDefault();
-            }
+            Packs.Remove(ActivePack);
+            ActivePack = Packs.FirstOrDefault();
         }
 
         private void ChangeActivePack(object obj)

@@ -10,6 +10,7 @@ namespace Lab_3.ViewModel
     internal class QuestionPackViewModel : ViewModelBase
     {
         private readonly QuestionPack model;
+        private readonly MainWindowViewModel? mainWindowViewModel;
 
         public string Name
         { 
@@ -45,6 +46,15 @@ namespace Lab_3.ViewModel
         {
             this.model = model;
             Questions = new ObservableCollection<Question>(model.Questions);
+            mainWindowViewModel = (MainWindowViewModel)(App.Current.MainWindow as MainWindow).DataContext;
+
+            AddQuestionPackCommand = new DelegateCommand(AddQuestionPack);
+        }
+
+        private void AddQuestionPack(object obj)
+        {
+            mainWindowViewModel.Packs.Add(this);
+            mainWindowViewModel.ActivePack = this;
         }
 
         public override string ToString()

@@ -29,15 +29,6 @@ namespace Lab_3.Dialogs
 
         public void CloseDialog(object sender, RoutedEventArgs e)
         {
-
-            if(sender == createButton)
-            {
-                DialogResult = true;
-            }
-            else
-            {
-                DialogResult = false;
-            }
             Close();
         }
     }

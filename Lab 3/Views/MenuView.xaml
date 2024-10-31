@@ -27,8 +27,7 @@
               BorderBrush="Black"
               Foreground="White">
             <MenuItem Header="_File">
-                <MenuItem DataContext="{Binding ConfigurationViewModel}"
-                          Command="{Binding AddQuestionPackCommand}"
+                <MenuItem Click="OpenNewPackDialog"
                           Header="_New Question Pack"
                           Icon="{fa:Icon FolderPlus}"/>
                 <MenuItem Header="_Select Question Pack"

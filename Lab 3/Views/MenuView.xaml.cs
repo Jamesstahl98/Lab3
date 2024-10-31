@@ -48,5 +48,11 @@ namespace Lab_3.Views
                 MainWindow.WindowState = WindowState.Maximized;
             }
         }
+
+        private void OpenNewPackDialog(object sender, RoutedEventArgs e)
+        {
+            var newPack = new CreateNewPackDialog();
+            newPack.ShowDialog();
+        }
     }
 }

@@ -50,6 +50,7 @@ namespace Lab_3.ViewModel
         private void RemoveQuestion(object obj)
         {
             ActivePack.Questions.Remove(ActiveQuestion);
+            mainWindowViewModel.GoToPlayerViewCommand.RaiseCanExecuteChanged();
         }
 
         private void AddQuestion(object obj)
@@ -58,6 +59,7 @@ namespace Lab_3.ViewModel
             var newQuestion = new Model.Question();
             ActivePack.Questions.Add(newQuestion);
             ActiveQuestion = newQuestion;
+            mainWindowViewModel.GoToPlayerViewCommand.RaiseCanExecuteChanged();
         }
     }
 }

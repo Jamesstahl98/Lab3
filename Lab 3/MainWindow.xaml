@@ -10,6 +10,17 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
     <Window.InputBindings>
+        <KeyBinding Modifiers="Control"
+                    Key="P"
+                    Command="{Binding GoToPlayerViewCommand}"/>
+        <KeyBinding Modifiers="Control"
+                    Key="E"
+                    Command="{Binding GoToConfigurationViewCommand}"/>
+
+        <KeyBinding Key="Insert"
+                    Command="{Binding ConfigurationViewModel.AddQuestionCommand}"/>
+        <KeyBinding Key="Delete"
+                    Command="{Binding ConfigurationViewModel.RemoveQuestionCommand}"/>
         
     </Window.InputBindings>
     <Grid>

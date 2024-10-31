@@ -19,7 +19,6 @@
             <Setter Property="BorderBrush" Value ="Black"/>
         </Style>
     </UserControl.Resources>
-
     <Grid>
         <Menu HorizontalContentAlignment="Left"
               VerticalAlignment="Top"

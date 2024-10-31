@@ -15,6 +15,7 @@ namespace Lab_3.ViewModel
 {
     internal class PlayerViewModel : ViewModelBase
     {
+        private Question[] questions;
         private readonly MainWindowViewModel? mainWindowViewModel;
         private DispatcherTimer timer;
         private int _timeLeft;
@@ -127,7 +128,8 @@ namespace Lab_3.ViewModel
             ActivePack = questionPackViewModel;
             QuizOngoing = true;
             QuestionPackQuestionCount = ActivePack.Questions.Count;
-            ActiveQuestion = ActivePack.Questions[0];
+            questions = RandomizeArray(ActivePack.Questions.ToArray());
+            ActiveQuestion = questions[0];
             QuestionCount = 0;
             CorrectGuesses = 0;
 
@@ -154,7 +156,7 @@ namespace Lab_3.ViewModel
             timer.Start();
         }
 
-        private string[] RandomizeArray(string[] array)
+        private T[] RandomizeArray<T>(T[] array)
         {
             int count = array.Length;
             while (count > 1)
@@ -197,7 +199,7 @@ namespace Lab_3.ViewModel
                 StopQuiz();
                 return;
             }
-            ActiveQuestion = ActivePack.Questions[_questionCount];
+            ActiveQuestion = questions[_questionCount];
             StartQuestion(ActiveQuestion);
         }
 

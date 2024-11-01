@@ -15,6 +15,11 @@ namespace Lab_3.Model
             IncorrectAnswers = new string[3] { incorrectAnswerOne, incorrectAnswerTwo, incorrectAnswerThree };
         }
 
+        public Question()
+        {
+
+        }
+
         public override string ToString()
         {
             return Query;

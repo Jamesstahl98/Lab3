@@ -4,13 +4,15 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Windows.Threading;
+using System.Windows;
 
 namespace Lab_3.ViewModel
 {
     internal class QuestionPackViewModel : ViewModelBase
     {
         private readonly QuestionPack model;
-        private readonly MainWindowViewModel? mainWindowViewModel;
+        private MainWindowViewModel? mainWindowViewModel;
 
         public string Name
         { 
@@ -39,9 +41,18 @@ namespace Lab_3.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public ObservableCollection<Question> Questions { get; }
+        public ObservableCollection<Question> Questions { get; set; } = new ObservableCollection<Question>();
         public DelegateCommand AddQuestionPackCommand { get; }
+        public QuestionPackViewModel()
+        {
+            model = new QuestionPack();
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                mainWindowViewModel = (MainWindowViewModel)(App.Current.MainWindow as MainWindow).DataContext;
+            });
 
+            AddQuestionPackCommand = new DelegateCommand(AddQuestionPack);
+        }
         public QuestionPackViewModel(QuestionPack model)
         {
             this.model = model;

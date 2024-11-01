@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace Lab_3.ViewModel
 {
@@ -27,6 +28,7 @@ namespace Lab_3.ViewModel
                 _activeQuestion = value;
                 RaisePropertyChanged();
                 RemoveQuestionCommand.RaiseCanExecuteChanged();
+                mainWindowViewModel.JsonQuestionPackHandler.SaveQuestionPacksToJson(mainWindowViewModel.Packs);
             }
         }
         public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)
@@ -56,7 +58,7 @@ namespace Lab_3.ViewModel
         private void AddQuestion(object obj)
         {
             if(ActivePack == null) { return; }
-            var newQuestion = new Model.Question();
+            var newQuestion = new Question("New Question");
             ActivePack.Questions.Add(newQuestion);
             ActiveQuestion = newQuestion;
             mainWindowViewModel.GoToPlayerViewCommand.RaiseCanExecuteChanged();

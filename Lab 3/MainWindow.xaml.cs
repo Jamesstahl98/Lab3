@@ -12,9 +12,14 @@ namespace Lab_3
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
+            Loaded += MainWindow_Loaded;
+        }
 
-            var pack = new QuestionPackViewModel(new QuestionPack("Question Pack"));
+        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            var viewModel = new MainWindowViewModel();
+            await viewModel.InitializeAsync(); 
+            DataContext = viewModel;
             menuView.MainWindow = this;
         }
     }

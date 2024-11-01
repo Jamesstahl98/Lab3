@@ -4,10 +4,12 @@ using Lab_3.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Lab_3.ViewModel
 {
@@ -45,6 +47,8 @@ namespace Lab_3.ViewModel
                 {
                     CanRemoveQuestionPack = false;
                 }
+
+                JsonQuestionPackHandler.SaveQuestionPacksToJson(Packs);
             }
 		}
         public bool ConfigurationViewModelActive
@@ -66,6 +70,7 @@ namespace Lab_3.ViewModel
                 RaisePropertyChanged();
             }
         }
+        public JsonQuestionPackHandler JsonQuestionPackHandler { get; }
         public ObservableCollection<QuestionPackViewModel> Packs{ get; set; }
         public PlayerViewModel PlayerViewModel { get; }
         public ConfigurationViewModel ConfigurationViewModel { get; }
@@ -86,9 +91,30 @@ namespace Lab_3.ViewModel
             GoToPlayerViewCommand = new DelegateCommand(GoToPlayerView, canPlay => ActivePack.Questions.Count > 0);
             GoToConfigurationViewCommand = new DelegateCommand(GoToConfigurationView);
 
+            JsonQuestionPackHandler = new JsonQuestionPackHandler(this);
+        }
+
+        public async Task InitializeAsync()
+        {
+
             Packs = new ObservableCollection<QuestionPackViewModel>();
-            ActivePack = new QuestionPackViewModel(new QuestionPack("Question Pack"));
-            Packs.Add(ActivePack);
+            var packs = await JsonQuestionPackHandler.LoadQuestionPacksAsync();
+            
+            await Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                Packs.Clear();
+                foreach (var pack in packs)
+                {
+                    Packs.Add(pack);
+                }
+            
+                if (Packs.Count < 1)
+                {
+                    Packs.Add(new QuestionPackViewModel(new QuestionPack()));
+                }
+            
+                ActivePack = Packs.FirstOrDefault();
+            });
         }
 
         private void GoToConfigurationView(object obj)
@@ -106,6 +132,7 @@ namespace Lab_3.ViewModel
         {
             Packs.Remove(ActivePack);
             ActivePack = Packs.FirstOrDefault();
+            JsonQuestionPackHandler.SaveQuestionPacksToJson(Packs);
         }
 
         private void ChangeActivePack(object obj)

@@ -5,21 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab_3.Dialogs"
         mc:Ignorable="d"
-        Title="DeleteQuestionPackDialog" Height="150" Width="350">
+        Title="DeleteQuestionPackDialog" Height="180" Width="350">
     <Window.Resources>
-        <Style TargetType="Grid">
-            <Setter Property="Background" Value ="#202020"/>
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="Foreground" Value="#202020"/>
-            <Setter Property="Margin" Value ="20"/>
-            <Setter Property="Width" Value ="50"/>
-        </Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value ="0,20,0,0"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Lab 3;component/Styles/DialogStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
     <Grid>
         <Grid>

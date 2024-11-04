@@ -18,10 +18,10 @@ namespace Lab_3
             this.mainWindowViewModel = mainWindowViewModel;
         }
 
-        public void SaveQuestionPacksToJson(ObservableCollection<QuestionPackViewModel> questionPacks)
+        public async Task SaveQuestionPacksToJsonAsync(ObservableCollection<QuestionPackViewModel> questionPacks)
         {
             string json = JsonSerializer.Serialize(questionPacks);
-            File.WriteAllText(saveLocation, json);
+            await File.WriteAllTextAsync(saveLocation, json);
         }
 
         public async Task<ObservableCollection<QuestionPackViewModel>> LoadQuestionPacksAsync()

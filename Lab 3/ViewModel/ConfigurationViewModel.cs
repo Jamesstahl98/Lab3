@@ -28,7 +28,7 @@ namespace Lab_3.ViewModel
                 _activeQuestion = value;
                 RaisePropertyChanged();
                 RemoveQuestionCommand.RaiseCanExecuteChanged();
-                mainWindowViewModel.JsonQuestionPackHandler.SaveQuestionPacksToJson(mainWindowViewModel.Packs);
+                Task.Run(async () => await mainWindowViewModel.JsonQuestionPackHandler.SaveQuestionPacksToJsonAsync(mainWindowViewModel.Packs));
             }
         }
         public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)

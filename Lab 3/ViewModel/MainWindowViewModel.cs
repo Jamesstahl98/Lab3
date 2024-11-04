@@ -47,8 +47,7 @@ namespace Lab_3.ViewModel
                 {
                     CanRemoveQuestionPack = false;
                 }
-
-                JsonQuestionPackHandler.SaveQuestionPacksToJson(Packs);
+                Task.Run(async () => await JsonQuestionPackHandler.SaveQuestionPacksToJsonAsync(Packs));
             }
 		}
         public bool ConfigurationViewModelActive
@@ -132,7 +131,7 @@ namespace Lab_3.ViewModel
         {
             Packs.Remove(ActivePack);
             ActivePack = Packs.FirstOrDefault();
-            JsonQuestionPackHandler.SaveQuestionPacksToJson(Packs);
+            Task.Run(async () => await JsonQuestionPackHandler.SaveQuestionPacksToJsonAsync(Packs));
         }
 
         private void ChangeActivePack(object obj)

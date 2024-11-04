@@ -9,35 +9,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="800">
     <UserControl.Resources>
-        <Style TargetType="Grid">
-            <Setter Property="Background" Value ="#202020"/>
-        </Style>
-        <Style TargetType="MenuItem">
-            <Setter Property="BorderBrush" Value ="Black"/>
-            <Setter Property="Padding" Value ="4,0"/>
-            <Style.Triggers>
-                <Trigger Property="IsHighlighted" Value="False">
-                    <Setter Property="Foreground" Value ="AliceBlue"/>
-                    <Setter Property="Background" Value ="#3d3d3d"/>
-                </Trigger>
-                <Trigger Property="IsHighlighted" Value="True">
-                    <Setter Property="Foreground" Value ="Black"/>
-                    <Setter Property="Background" Value ="AliceBlue"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="Separator">
-            <Setter Property="Foreground" Value="Black"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Lab 3;component/Styles/MenuViewStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Menu HorizontalContentAlignment="Left"
-              VerticalAlignment="Top"
-              Background="#3d3d3d"
-              BorderBrush="Black"
-              Foreground="White">
-            <MenuItem Header="_File"
-                      Foreground="AliceBlue">
+        <Menu>
+            <!-- File Menu -->
+            <MenuItem Header="_File">
                 <MenuItem Click="OpenNewPackDialog"
                           Header="_New Question Pack"
                           Icon="{fa:Icon FolderPlus}"/>
@@ -47,27 +28,7 @@
                           ItemsSource="{Binding Packs}"
                           Command="{Binding ChangeActivePackCommand}">
                     <MenuItem.ItemContainerStyle>
-                        <Style TargetType="{x:Type MenuItem}">
-                            <Setter Property="HeaderTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock>
-                                            <TextBlock.Text>
-                                                <MultiBinding StringFormat="{}{0} ({1})">
-                                                    <Binding Path="Name"/>
-                                                    <Binding Path="Difficulty"/>
-                                                </MultiBinding>
-                                            </TextBlock.Text>
-                                        </TextBlock>
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="Command" Value="{Binding DataContext.ChangeActivePackCommand, 
-                                RelativeSource={RelativeSource Mode=FindAncestor, 
-                                AncestorType={x:Type MenuItem}, 
-                                AncestorLevel=1}}" />
-                            <Setter Property="CommandParameter" Value="{Binding}"/>
-                        </Style>
+                        <StaticResource ResourceKey="MultiBindingMenuItemStyle"/>
                     </MenuItem.ItemContainerStyle>
                 </MenuItem>
                 
@@ -82,8 +43,8 @@
                           Icon="{fa:Icon DoorOpen}"/>
             </MenuItem>
             
+            <!--Edit Menu-->
             <MenuItem Header="_Edit"
-                      Foreground="AliceBlue"
                       DataContext="{Binding ConfigurationViewModel}">
                 <MenuItem Header="_Add Question"
                           Icon="{fa:Icon Plus}"
@@ -97,9 +58,9 @@
                           Click="OpenPackOptions"
                           Icon="{fa:Icon Sliders}"/>
             </MenuItem>
-            
-            <MenuItem Header="_View"
-                      Foreground="AliceBlue">
+
+            <!--View Menu-->
+            <MenuItem Header="_View">
                 <MenuItem Header="_Play"
                           Icon="{fa:Icon Play}"
                           Command="{Binding GoToPlayerViewCommand}"/>

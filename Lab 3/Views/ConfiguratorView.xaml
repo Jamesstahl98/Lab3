@@ -9,25 +9,16 @@
              DataContext="{Binding ConfigurationViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="900">
-    
+
     <UserControl.Resources>
-        <Style TargetType="Grid">
-            <Setter Property="Background" Value ="#202020"/>
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value ="10"/>
-            <Setter Property="Height" Value ="20"/>
-            <Setter Property="Width" Value ="20"/>
-        </Style>
-        <Style TargetType="ListViewItem">
-            <Setter Property="Foreground" Value ="White"/>
-        </Style>
-        <Style TargetType="Label">
-            <Setter Property="Foreground" Value ="White"/>
-            <Setter Property="Margin" Value ="20,10,0,0"/>
-            <Setter Property="FontWeight" Value ="Bold"/>
-        </Style>
-        <converters:NullVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        <ResourceDictionary>
+
+            <converters:NullVisibilityConverter x:Key="NullToVisibilityConverter"/>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Lab 3;component/Styles/ConfigurationViewStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
     
     <Grid>

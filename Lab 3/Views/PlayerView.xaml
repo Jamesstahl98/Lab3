@@ -9,26 +9,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="800">
     <UserControl.Resources>
-        <Style TargetType="Grid">
-            <Setter Property="Background" Value ="#202020"/>
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value ="10"/>
-            <Setter Property="Height" Value ="80"/>
-            <Setter Property="Width" Value ="200"/>
-            <Setter Property="FontSize" Value ="16"/>
-        </Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value ="#202020"/>
-        </Style>
-        <Style TargetType="Image">
-            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
-            <Setter Property="Height" Value="50"/>
-        </Style>
-        <converters:IntToStringConverter x:Key="IntToStringConverter"/>
-        <converters:NullVisibilityConverter x:Key="NullToVisibilityConverter"/>
-        <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter"/>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <ResourceDictionary>
+
+            <converters:IntToStringConverter x:Key="IntToStringConverter"/>
+            <converters:NullVisibilityConverter x:Key="NullToVisibilityConverter"/>
+            <converters:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter"/>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Lab 3;component/Styles/PlayerViewStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -70,90 +61,70 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Command="{Binding PlayerGuessCommand}"
-                    CommandParameter="{Binding Answers[0]}"
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Margin="127,16,73,16">
-                <TextBlock Text="{Binding Answers[0]}" 
-                           TextWrapping="Wrap"/>
-            </Button>
-            <Image Source="../Assets/correct.png"
-                   Grid.Row="0"
-                   Grid.Column="0"
-                   Margin="-73,0,73,0"
+
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Button Command="{Binding PlayerGuessCommand}"
+                    CommandParameter="{Binding Answers[0]}">
+                    <TextBlock Text="{Binding Answers[0]}" 
+                               TextWrapping="Wrap"/>
+                </Button>
+                <Image Source="../Assets/correct.png"
                    Visibility="{Binding RevealedAnswers[0], 
                                 Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <Image Source="../Assets/incorrect.png"
-                   Grid.Row="0"
-                   Grid.Column="0"
-                   Margin="-73,0,73,0"
+                <Image Source="../Assets/incorrect.png"
                    Visibility="{Binding RevealedAnswers[0], 
                                 Converter={StaticResource ReverseBooleanToVisibilityConverter}}"/>
+            </Grid>
+            
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Button Command="{Binding PlayerGuessCommand}"
+                    CommandParameter="{Binding Answers[1]}">
 
-            <Button Command="{Binding PlayerGuessCommand}"
-                    CommandParameter="{Binding Answers[1]}"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Margin="73,16,127,16">
-                <TextBlock Text="{Binding Answers[1]}"
+                    <TextBlock Text="{Binding Answers[1]}"
                            TextWrapping="Wrap"/>
-            </Button>
-            <Image Source="../Assets/correct.png"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Margin="-180,0,73,0"
+                </Button>
+                <Image Source="../Assets/correct.png"
                     Visibility="{Binding RevealedAnswers[1], 
                                  Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <Image Source="../Assets/incorrect.png"
-                   Grid.Row="0"
-                   Grid.Column="1"
-                   Margin="-180,0,73,0"
+                <Image Source="../Assets/incorrect.png"
                    Visibility="{Binding RevealedAnswers[1], 
                                 Converter={StaticResource ReverseBooleanToVisibilityConverter}}"/>
-
-            <Button Command="{Binding PlayerGuessCommand}"
-                    CommandParameter="{Binding Answers[2]}"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Margin="127,16,73,16">
-                <TextBlock Text="{Binding Answers[2]}"
-                           TextWrapping="Wrap"/>
-            </Button>
-            <Image Source="../Assets/correct.png"
-                   Grid.Row="1"
-                   Grid.Column="0"
-                   Margin="-73,0,73,0"
+            </Grid>
+            
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Button Command="{Binding PlayerGuessCommand}"
+                    CommandParameter="{Binding Answers[2]}">
+                    
+                    <TextBlock Text="{Binding Answers[2]}"
+                               TextWrapping="Wrap"/>
+                </Button>
+                
+                <Image Source="../Assets/correct.png"
                    Visibility="{Binding RevealedAnswers[2], 
                                 Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <Image Source="../Assets/incorrect.png"
-                   Grid.Row="1"
-                   Grid.Column="0"
-                   Margin="-73,0,73,0"
+                
+                <Image Source="../Assets/incorrect.png"
                    Visibility="{Binding RevealedAnswers[2], 
                                 Converter={StaticResource ReverseBooleanToVisibilityConverter}}"/>
-
-            <Button Command="{Binding PlayerGuessCommand}"
+            </Grid>
+            
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Button Command="{Binding PlayerGuessCommand}"
                     CommandParameter="{Binding Answers[3]}"
                     Grid.Row="1"
-                    Grid.Column="1"
-                    Margin="73,16,127,16">
-                <TextBlock Text="{Binding Answers[3]}"
-                           TextWrapping="Wrap"/>
-            </Button>
-            <Image Source="../Assets/correct.png"
-                   Grid.Row="1"
-                   Grid.Column="1"
-                   Margin="-180,0,73,0"
-                   Visibility="{Binding RevealedAnswers[3], 
+                    Grid.Column="1">
+                    <TextBlock Text="{Binding Answers[3]}"
+                               TextWrapping="Wrap"/>
+                </Button>
+                <Image Source="../Assets/correct.png"
+                       Visibility="{Binding RevealedAnswers[3], 
                                 Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <Image Source="../Assets/incorrect.png"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Margin="-180,0,73,0"
-                    Visibility="{Binding RevealedAnswers[3], 
+                <Image Source="../Assets/incorrect.png"
+                       Visibility="{Binding RevealedAnswers[3], 
                                  Converter={StaticResource ReverseBooleanToVisibilityConverter}}"/>
+            </Grid>
         </Grid>
+
         <StackPanel Visibility="{Binding QuizOngoing, Converter={StaticResource ReverseBooleanToVisibilityConverter}}"
             VerticalAlignment="Bottom">
             <Label Content="Complete!"

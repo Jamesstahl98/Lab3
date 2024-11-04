@@ -37,16 +37,6 @@ namespace Lab_3.ViewModel
 
             AddQuestionCommand = new DelegateCommand(AddQuestion);
             RemoveQuestionCommand = new DelegateCommand(RemoveQuestion, canRemove => ActiveQuestion != null);
-
-            this.mainWindowViewModel.PropertyChanged += MainWindowViewModel_PropertyChanged;
-        }
-
-        private void MainWindowViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(MainWindowViewModel.ActivePack))
-            {
-                RaisePropertyChanged(nameof(ActivePack));
-            }
         }
 
         private void RemoveQuestion(object obj)

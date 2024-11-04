@@ -36,6 +36,7 @@ namespace Lab_3.ViewModel
             { 
                 _activePack = value;
                 RaisePropertyChanged();
+                ConfigurationViewModel?.RaisePropertyChanged();
                 RemoveActivePackCommand.RaiseCanExecuteChanged();
                 GoToPlayerViewCommand.RaiseCanExecuteChanged();
 

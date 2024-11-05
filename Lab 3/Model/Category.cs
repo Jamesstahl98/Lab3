@@ -1,16 +1,25 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Lab_3.Model
 {
     internal class Category
     {
-        public Dictionary<Enum, ObservableCollection<Question>> Questions { get; set; }
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
 
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
 
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

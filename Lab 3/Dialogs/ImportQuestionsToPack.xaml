@@ -14,6 +14,7 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
-
+        <ComboBox Height="25"
+                  ItemsSource="{Binding Categories}"/>
     </Grid>
 </Window>

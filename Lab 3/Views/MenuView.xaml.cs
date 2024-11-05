@@ -45,8 +45,14 @@ namespace Lab_3.Views
 
         private void OpenDeleteQuestionPackDialog(object sender, RoutedEventArgs e)
         {
-            var newPack = new DeleteQuestionPackDialog();
-            newPack.ShowDialog();
+            var dialog = new DeleteQuestionPackDialog();
+            dialog.ShowDialog();
+        }
+
+        private void OpenImportQuestionToPackDialog(object sender, RoutedEventArgs e)
+        {
+            var dialog = new ImportQuestionsToPack();
+            dialog.ShowDialog();
         }
     }
 }

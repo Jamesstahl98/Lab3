@@ -37,6 +37,7 @@
                           IsEnabled="{Binding CanRemoveQuestionPack}"
                           Icon="{fa:Icon FolderMinus}"/>
                 <MenuItem Header="_Import Questions"
+                          Click="OpenImportQuestionToPackDialog"
                           Icon="{fa:Icon CloudArrowDown}"/>
                 <Separator/>
                 <MenuItem Header="E_xit"

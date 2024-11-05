@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lab_3.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,7 @@ namespace Lab_3.Dialogs
         public ImportQuestionsToPack()
         {
             InitializeComponent();
-            DataContext = new ImportQuestionsToPack();
+            DataContext = new QuestionImporterViewModel();
         }
     }
 }

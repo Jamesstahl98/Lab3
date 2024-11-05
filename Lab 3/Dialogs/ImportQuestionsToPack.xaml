@@ -11,6 +11,7 @@
         <ResourceDictionary>
 
             <converters:EnumToIntConverter x:Key="EnumToIntConverter"/>
+            <converters:InvertBoolConverter x:Key="InvertBoolConverter"/>
             
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Lab 3;component/Styles/DialogStyle.xaml"/>
@@ -21,8 +22,11 @@
         <StackPanel>
             <Label Content="Category:"/>
             <ComboBox ItemsSource="{Binding Categories}" 
+                      IsEnabled="{Binding IsLoading,
+                                  Converter={StaticResource InvertBoolConverter}}"
                       DisplayMemberPath="Name" 
-                      SelectedValue="{Binding SelectedCategory, Mode=TwoWay}"/>
+                      SelectedValue="{Binding SelectedCategory,
+                                      Mode=TwoWay}"/>
 
             <Label Content="Difficulty:"/>
             <ComboBox SelectedIndex="{Binding Difficulty, Converter={StaticResource EnumToIntConverter}}">
@@ -44,10 +48,12 @@
             
             <DockPanel HorizontalAlignment="Center"
                        Margin="0,15">
-                <Button Content="Cancel"/>
+                <Button Content="Cancel"
+                        Click="CloseWindow"/>
 
                 <Button Content="Import"
-                        Command="{Binding FetchQuestionsCommand}"/>
+                        Command="{Binding FetchQuestionsCommand}"
+                        Click="CloseWindow"/>
             </DockPanel>
         </StackPanel>
     </Grid>

@@ -18,6 +18,8 @@ namespace Lab_3.ViewModel
 {
     internal class QuestionImporterViewModel : ViewModelBase
     {
+        private static readonly Category LoadingCategory = new Category { Name = "Loading..." };
+        private bool _isLoading;
         private MainWindowViewModel mainWindowViewModel;
         private Category _selectedCategory;
         private static readonly HttpClient client = new HttpClient();
@@ -37,6 +39,19 @@ namespace Lab_3.ViewModel
         public Difficulty Difficulty { get; set; } = Difficulty.Medium;
 
         public static int NumberOfQuestions { get; set; } = 1;
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                if (_isLoading != value)
+                {
+                    _isLoading = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         public DelegateCommand FetchQuestionsCommand { get; }
 
         public QuestionImporterViewModel()
@@ -46,28 +61,40 @@ namespace Lab_3.ViewModel
                 mainWindowViewModel = (MainWindowViewModel)(App.Current.MainWindow as MainWindow).DataContext;
             });
 
-            InitializeCategoriesAsync().ConfigureAwait(false);
-
             FetchQuestionsCommand = new DelegateCommand(
                                     async _ => await LoadQuestionsForSelectedCategoryAsync(),
                                     _ => SelectedCategory != null
                                     );
+
+            InitializeCategoriesAsync().ConfigureAwait(false);
         }
 
         private async Task InitializeCategoriesAsync()
         {
+            IsLoading = true;
+            Categories.Clear();
+            Categories.Add(LoadingCategory);
+            SelectedCategory = LoadingCategory;
+
             try
             {
                 var categories = await FetchCategoriesAsync("https://opentdb.com/api_category.php") ?? new List<Category>();
 
+                Categories.Clear();
                 foreach (var category in categories)
                 {
                     Categories.Add(category);
                 }
+                SelectedCategory = Categories.FirstOrDefault();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error initializing categories: {ex.Message}");
+            }
+            finally
+            {
+                Debug.WriteLine("NOLONGERLOADING");
+                IsLoading = false;
             }
         }
 

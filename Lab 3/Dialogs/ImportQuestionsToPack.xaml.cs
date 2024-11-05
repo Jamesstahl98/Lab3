@@ -25,5 +25,10 @@ namespace Lab_3.Dialogs
             InitializeComponent();
             DataContext = new QuestionImporterViewModel();
         }
+
+        private void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

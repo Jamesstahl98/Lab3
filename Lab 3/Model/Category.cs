@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -16,10 +17,5 @@ namespace Lab_3.Model
 
         [JsonPropertyName("name")]
         public string Name { get; set; }
-
-        public override string ToString()
-        {
-            return Name;
-        }
     }
 }

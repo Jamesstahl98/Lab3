@@ -19,6 +19,7 @@ namespace Lab_3.ViewModel
     internal class QuestionImporterViewModel : ViewModelBase
     {
         private static readonly Category LoadingCategory = new Category { Name = "Loading..." };
+        private string _errorMessage;
         private bool _isLoading;
         private MainWindowViewModel mainWindowViewModel;
         private Category _selectedCategory;
@@ -35,9 +36,7 @@ namespace Lab_3.ViewModel
                 FetchQuestionsCommand.RaiseCanExecuteChanged();
             }
         }
-
         public Difficulty Difficulty { get; set; } = Difficulty.Medium;
-
         public static int NumberOfQuestions { get; set; } = 1;
         public bool IsLoading
         {
@@ -51,8 +50,19 @@ namespace Lab_3.ViewModel
                 }
             }
         }
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public DelegateCommand FetchQuestionsCommand { get; }
+        public DelegateCommand FetchAndValidateCommand { get; }
+        public event Action RequestClose;
 
         public QuestionImporterViewModel()
         {
@@ -65,6 +75,7 @@ namespace Lab_3.ViewModel
                                     async _ => await LoadQuestionsForSelectedCategoryAsync(),
                                     _ => SelectedCategory != null
                                     );
+            FetchAndValidateCommand = new DelegateCommand(async _ => await FetchAndValidateAsync());
 
             InitializeCategoriesAsync().ConfigureAwait(false);
         }
@@ -89,11 +100,10 @@ namespace Lab_3.ViewModel
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error initializing categories: {ex.Message}");
+                ErrorMessage = $"Error initializing categories: {ex.Message}";
             }
             finally
             {
-                Debug.WriteLine("NOLONGERLOADING");
                 IsLoading = false;
             }
         }
@@ -110,7 +120,7 @@ namespace Lab_3.ViewModel
             }
             else
             {
-                Debug.WriteLine($"Failed to retrieve categories: {response.StatusCode}");
+                ErrorMessage = $"Failed to retrieve categories: {response.StatusCode}";
                 return new List<Category>();
             }
         }
@@ -121,13 +131,12 @@ namespace Lab_3.ViewModel
             if (response.IsSuccessStatusCode)
             {
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-                Debug.WriteLine(jsonResponse);
                 return JsonSerializer.Deserialize<Category>(jsonResponse);
             }
             return null;
         }
 
-        private static async Task<List<Question>> FetchQuestionsAsync(Category selectedCategory, int numberOfQuestions, Difficulty difficulty)
+        private static async Task<List<Question>> FetchQuestionsAsync(Category selectedCategory, int numberOfQuestions, Difficulty difficulty, Action<string> setErrorMessage)
         {
             string url = $"https://opentdb.com/api.php?amount={numberOfQuestions}&category={selectedCategory.Id}&difficulty={Uri.EscapeDataString(difficulty.ToString().ToLower())}&type=multiple";
             HttpResponseMessage response = await client.GetAsync(url);
@@ -140,20 +149,56 @@ namespace Lab_3.ViewModel
             }
             else
             {
-                Debug.WriteLine($"Failed to retrieve questions for category {selectedCategory.Id}: {response.StatusCode}");
-                return new List<Question>();
+                setErrorMessage?.Invoke($"Failed to retrieve questions for category {selectedCategory.Name}: {response.StatusCode}");
+                return null;
             }
         }
-        private async Task LoadQuestionsForSelectedCategoryAsync()
+
+        private async Task<bool> LoadQuestionsForSelectedCategoryAsync()
         {
-            if (SelectedCategory != null)
+            if (SelectedCategory == null)
             {
-                var questions = await FetchQuestionsAsync(SelectedCategory, NumberOfQuestions, Difficulty);
-                foreach (var question in questions)
-                {
-                    mainWindowViewModel.ActivePack.Questions.Add(question);
-                }
+                return false;
             }
+
+            var questions = await FetchQuestionsAsync(SelectedCategory, 
+                NumberOfQuestions, 
+                Difficulty,
+                message => ErrorMessage = message);
+
+            if(questions == null)
+            {
+                return false;
+            }
+
+            if (questions.Count < NumberOfQuestions)
+            {
+                ErrorMessage = $"Not enough questions in the selected category. Please adjust your selection.";
+                return false;
+            }
+
+            foreach (var question in questions)
+            {
+                mainWindowViewModel.ActivePack.Questions.Add(question);
+            }
+
+            ErrorMessage = string.Empty;
+            return true;
+        }
+
+        private async Task FetchAndValidateAsync()
+        {
+            bool isValid = await LoadQuestionsForSelectedCategoryAsync();
+
+            if (isValid)
+            {
+                OnRequestClose();
+            }
+        }
+
+        protected virtual void OnRequestClose()
+        {
+            RequestClose?.Invoke();
         }
     }
 }

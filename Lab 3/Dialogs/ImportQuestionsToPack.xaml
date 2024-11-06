@@ -6,12 +6,14 @@
         xmlns:converters="clr-namespace:Lab_3.Converters"
         xmlns:local="clr-namespace:Lab_3.Dialogs"
         mc:Ignorable="d"
-        Title="ImportQuestionsTopack" Height="270" Width="220">
+        Title="ImportQuestionsTopack" Height="Auto" Width="220"
+        SizeToContent="Height">
     <Window.Resources>
         <ResourceDictionary>
 
             <converters:EnumToIntConverter x:Key="EnumToIntConverter"/>
             <converters:InvertBoolConverter x:Key="InvertBoolConverter"/>
+            <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
             
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Lab 3;component/Styles/DialogStyle.xaml"/>
@@ -45,15 +47,16 @@
                     Value="{Binding NumberOfQuestions}"
                     Minimum="1"
                     Maximum="20"/>
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="Red"
+                       Visibility="{Binding ErrorMessage,
+                Converter={StaticResource StringToVisibilityConverter}}" />
             
             <DockPanel HorizontalAlignment="Center"
                        Margin="0,15">
-                <Button Content="Cancel"
-                        Click="CloseWindow"/>
-
+                <Button Content="Cancel"/>
+                
                 <Button Content="Import"
-                        Command="{Binding FetchQuestionsCommand}"
-                        Click="CloseWindow"/>
+                        Command="{Binding FetchQuestionsCommand}"/>
             </DockPanel>
         </StackPanel>
     </Grid>

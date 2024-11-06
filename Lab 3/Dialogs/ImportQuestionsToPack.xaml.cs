@@ -23,10 +23,12 @@ namespace Lab_3.Dialogs
         public ImportQuestionsToPack()
         {
             InitializeComponent();
-            DataContext = new QuestionImporterViewModel();
+            var viewModel = new QuestionImporterViewModel();
+            DataContext = viewModel;
+            viewModel.RequestClose += CloseWindow;
         }
 
-        private void CloseWindow(object sender, RoutedEventArgs e)
+        private void CloseWindow()
         {
             Close();
         }

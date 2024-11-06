@@ -19,8 +19,9 @@
         <Menu>
             <!-- File Menu -->
             <MenuItem Header="_File">
-                <MenuItem Click="OpenNewPackDialog"
-                          Header="_New Question Pack"
+                <MenuItem Header="_New Question Pack"
+                          Command="{Binding CreateNewDialogCommand}"
+                          CommandParameter="CreateNewPackDialog"
                           Icon="{fa:Icon FolderPlus}"/>
                 
                 <MenuItem Header="_Select Question Pack"
@@ -33,45 +34,57 @@
                 </MenuItem>
                 
                 <MenuItem Header="_Delete Question Pack"
-                          Click="OpenDeleteQuestionPackDialog"
-                          IsEnabled="{Binding CanRemoveQuestionPack}"
+                          Command="{Binding CreateNewDialogCommand}"
+                          CommandParameter="DeleteQuestionPackDialog"
                           Icon="{fa:Icon FolderMinus}"/>
                 <MenuItem Header="_Import Questions"
-                          Click="OpenImportQuestionToPackDialog"
-                          Icon="{fa:Icon CloudArrowDown}"/>
+                          InputGestureText="Ctrl-I"
+                          Command="{Binding CreateNewDialogCommand}"
+                          CommandParameter="ImportQuestionsToPack"
+                          Icon="{fa:Icon CloudArrowDown}">
+                </MenuItem>
                 <Separator/>
                 <MenuItem Header="E_xit"
+                          InputGestureText="Alt-F4"
                           Icon="{fa:Icon DoorOpen}"/>
             </MenuItem>
             
             <!--Edit Menu-->
-            <MenuItem Header="_Edit"
-                      DataContext="{Binding ConfigurationViewModel}">
+            <MenuItem Header="_Edit">
                 <MenuItem Header="_Add Question"
+                          InputGestureText="Insert"
                           Icon="{fa:Icon Plus}"
+                          DataContext="{Binding ConfigurationViewModel}"
                           Command="{Binding AddQuestionCommand}"/>
                 
                 <MenuItem Header="_Remove Question"
+                          InputGestureText="Delete"
                           Icon="{fa:Icon Minus}"
+                          DataContext="{Binding ConfigurationViewModel}"
                           Command="{Binding RemoveQuestionCommand}"/>
                 
                 <MenuItem Header="_Pack Options"
-                          Click="OpenPackOptions"
+                          InputGestureText="Ctrl-O"
+                          Command="{Binding CreateNewDialogCommand}"
+                          CommandParameter="PackOptionsDialog"
                           Icon="{fa:Icon Sliders}"/>
             </MenuItem>
 
             <!--View Menu-->
             <MenuItem Header="_View">
                 <MenuItem Header="_Play"
+                          InputGestureText="Ctrl-P"
                           Icon="{fa:Icon Play}"
-                          Command="{Binding GoToPlayerViewCommand}"/>
+                          Command="{Binding StartQuizCommand}"/>
                 
                 <MenuItem Header="E_dit"
-                          Command="{Binding GoToConfigurationViewCommand}"
+                          InputGestureText="Ctrl-E"
+                          Command="{Binding StartConfigurationCommand}"
                           Icon="{fa:Icon Gears}"/>
                 
                 <MenuItem Header="_Fullscreen"
-						  Click="ChangeWindowState"
+                          InputGestureText="Alt-Enter"
+						  Command="{Binding ChangeWindowStateCommand}"
                           Icon="{fa:Icon Expand}"/>
             </MenuItem>
         </Menu>

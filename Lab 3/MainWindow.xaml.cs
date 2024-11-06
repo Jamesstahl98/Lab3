@@ -1,4 +1,6 @@
-﻿using Lab_3.Model;
+﻿using Lab_3.Command;
+using Lab_3.Interfaces;
+using Lab_3.Model;
 using Lab_3.ViewModel;
 using System.Windows;
 
@@ -21,6 +23,37 @@ namespace Lab_3
             await viewModel.InitializeAsync(); 
             DataContext = viewModel;
             menuView.MainWindow = this;
+
+            viewModel.ShowDialogRequested += OnShowDialogRequested;
+            viewModel.ChangeWindowRequested += ChangeWindowState;
+        }
+
+        private void OnShowDialogRequested(string className)
+        {
+            if (string.IsNullOrEmpty(className))
+            {
+                return;
+            }
+
+            Type windowType = Type.GetType("Lab_3.Dialogs." + className);
+
+            if (windowType != null)
+            {
+                Window newWindow = (Window)Activator.CreateInstance(windowType);
+                newWindow.Show();
+            }
+        }
+
+        private void ChangeWindowState()
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                WindowState = WindowState.Normal;
+            }
+            else
+            {
+                WindowState = WindowState.Maximized;
+            }
         }
     }
 }

@@ -11,17 +11,29 @@
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Modifiers="Control"
-                    Key="P"
-                    Command="{Binding GoToPlayerViewCommand}"/>
-        <KeyBinding Modifiers="Control"
-                    Key="E"
-                    Command="{Binding GoToConfigurationViewCommand}"/>
+                    Key="I"
+                    Command="{Binding CreateNewDialogCommand}"
+                    CommandParameter="ImportQuestionsToPack"/>
 
         <KeyBinding Key="Insert"
                     Command="{Binding ConfigurationViewModel.AddQuestionCommand}"/>
         <KeyBinding Key="Delete"
                     Command="{Binding ConfigurationViewModel.RemoveQuestionCommand}"/>
+        <KeyBinding Modifiers="Control"
+                    Key="O"
+                    Command="{Binding CreateNewDialogCommand}"
+                    CommandParameter="PackOptionsDialog"/>
         
+        <KeyBinding Modifiers="Control"
+             Key="P"
+             Command="{Binding StartQuizCommand}"/>
+        <KeyBinding Modifiers="Control"
+             Key="E"
+             Command="{Binding StartConfigurationCommand}"/>
+        <KeyBinding Modifiers="Alt"
+                    Key="Enter"
+                    Command="{Binding ChangeWindowStateCommand}"/>
+
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>

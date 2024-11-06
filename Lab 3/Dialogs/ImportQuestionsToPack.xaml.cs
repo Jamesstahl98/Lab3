@@ -32,5 +32,10 @@ namespace Lab_3.Dialogs
         {
             Close();
         }
+
+        private void Cancel(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

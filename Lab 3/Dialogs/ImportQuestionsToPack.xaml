@@ -53,10 +53,11 @@
             
             <DockPanel HorizontalAlignment="Center"
                        Margin="0,15">
-                <Button Content="Cancel"/>
+                <Button Content="Cancel"
+                        Click="Cancel"/>
                 
                 <Button Content="Import"
-                        Command="{Binding FetchQuestionsCommand}"/>
+                        Command="{Binding FetchAndValidateCommand}"/>
             </DockPanel>
         </StackPanel>
     </Grid>

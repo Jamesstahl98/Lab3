@@ -7,9 +7,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Lab_3.ViewModel
 {
@@ -38,7 +40,7 @@ namespace Lab_3.ViewModel
                 RaisePropertyChanged();
                 ConfigurationViewModel?.RaisePropertyChanged();
                 RemoveActivePackCommand.RaiseCanExecuteChanged();
-                GoToPlayerViewCommand.RaiseCanExecuteChanged();
+                StartQuizCommand.RaiseCanExecuteChanged();
 
                 if(Packs.Count > 1 )
                 {
@@ -76,11 +78,18 @@ namespace Lab_3.ViewModel
         public ConfigurationViewModel ConfigurationViewModel { get; }
         public DelegateCommand ChangeActivePackCommand { get; }
         public DelegateCommand RemoveActivePackCommand { get; }
-        public DelegateCommand GoToPlayerViewCommand { get; }
-        public DelegateCommand GoToConfigurationViewCommand { get; }
+        public DelegateCommand StartQuizCommand { get; }
+        public DelegateCommand StartConfigurationCommand { get; }
+        public DelegateCommand CreateNewDialogCommand { get; }
+        public DelegateCommand ChangeWindowStateCommand { get; }
+        public event Action ChangeWindowRequested;
+        public DelegateCommand ShowDialogCommand { get; private set; }
+        public event Action<string> ShowDialogRequested;
 
         public MainWindowViewModel()
         {
+            ChangeWindowStateCommand = new DelegateCommand(ChangeWindowState);
+            ShowDialogCommand = new DelegateCommand(CreateNewDialog);
             PlayerViewModel = new PlayerViewModel(this);
             ConfigurationViewModel = new ConfigurationViewModel(this);
 
@@ -88,8 +97,9 @@ namespace Lab_3.ViewModel
 
             ChangeActivePackCommand = new DelegateCommand(ChangeActivePack);
             RemoveActivePackCommand = new DelegateCommand(RemoveActivePack, canRemove => Packs.Count > 1);
-            GoToPlayerViewCommand = new DelegateCommand(GoToPlayerView, canPlay => ActivePack.Questions.Count > 0);
-            GoToConfigurationViewCommand = new DelegateCommand(GoToConfigurationView);
+            StartQuizCommand = new DelegateCommand(StartQuiz, canPlay => ActivePack.Questions.Count > 0);
+            StartConfigurationCommand = new DelegateCommand(StartConfiguration);
+            CreateNewDialogCommand = new DelegateCommand(CreateNewDialog);
 
             JsonQuestionPackHandler = new JsonQuestionPackHandler(this);
         }
@@ -117,12 +127,12 @@ namespace Lab_3.ViewModel
             });
         }
 
-        private void GoToConfigurationView(object obj)
+        private void StartConfiguration(object obj)
         {
             PlayerViewModelActive = false;
         }
 
-        private void GoToPlayerView(object obj)
+        private void StartQuiz(object obj)
         {
             PlayerViewModel.StartQuiz(ActivePack);
             PlayerViewModelActive = true;
@@ -138,6 +148,17 @@ namespace Lab_3.ViewModel
         private void ChangeActivePack(object obj)
         {
             ActivePack = (QuestionPackViewModel)obj;
+        }
+
+        private void CreateNewDialog(object obj)
+        {
+            string className = obj as string;
+            ShowDialogRequested?.Invoke(className);
+        }
+
+        private void ChangeWindowState(object obj)
+        {
+            ChangeWindowRequested?.Invoke();
         }
     }
 }

@@ -33,7 +33,6 @@ namespace Lab_3.ViewModel
             {
                 _selectedCategory = value;
                 RaisePropertyChanged();
-                FetchQuestionsCommand.RaiseCanExecuteChanged();
             }
         }
         public Difficulty Difficulty { get; set; } = Difficulty.Medium;
@@ -60,7 +59,6 @@ namespace Lab_3.ViewModel
             }
         }
 
-        public DelegateCommand FetchQuestionsCommand { get; }
         public DelegateCommand FetchAndValidateCommand { get; }
         public event Action RequestClose;
 
@@ -71,10 +69,6 @@ namespace Lab_3.ViewModel
                 mainWindowViewModel = (MainWindowViewModel)(App.Current.MainWindow as MainWindow).DataContext;
             });
 
-            FetchQuestionsCommand = new DelegateCommand(
-                                    async _ => await LoadQuestionsForSelectedCategoryAsync(),
-                                    _ => SelectedCategory != null
-                                    );
             FetchAndValidateCommand = new DelegateCommand(async _ => await FetchAndValidateAsync());
 
             InitializeCategoriesAsync().ConfigureAwait(false);
@@ -196,7 +190,7 @@ namespace Lab_3.ViewModel
             }
         }
 
-        protected virtual void OnRequestClose()
+        private void OnRequestClose()
         {
             RequestClose?.Invoke();
         }

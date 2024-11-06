@@ -1,5 +1,6 @@
 ﻿using Lab_3.ViewModel;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text.Json;
@@ -30,13 +31,34 @@ namespace Lab_3
             {
                 using (File.Create(saveLocation)) { }
             }
-            await using FileStream fileStream = File.OpenRead(saveLocation);
-            if(fileStream.Length == 0)
+            try
             {
-                return new ObservableCollection<QuestionPackViewModel>();
+                await using FileStream fileStream = File.OpenRead(saveLocation);
+                if (fileStream.Length == 0)
+                {
+                    return new ObservableCollection<QuestionPackViewModel>();
+                }
+                var questionPacks = await JsonSerializer.DeserializeAsync<ObservableCollection<QuestionPackViewModel>>(fileStream);
+                return questionPacks;
             }
-            var questionPacks = await JsonSerializer.DeserializeAsync<ObservableCollection<QuestionPackViewModel>>(fileStream);
-            return questionPacks;
+
+            catch (JsonException ex)
+            {
+                Debug.WriteLine($"Invalid JSON: {ex.Message}");
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Debug.WriteLine("Access denied to the file: " + ex.Message);
+            }
+            catch (IOException ex)
+            {
+                Debug.WriteLine("I/O error while reading the file: " + ex.Message);
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine($"Unexpected error: {ex.Message}");
+            }
+            return new ObservableCollection<QuestionPackViewModel>();
         }
     }
 }

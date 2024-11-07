@@ -20,17 +20,18 @@ namespace Lab_3.ViewModel
         private QuestionPackViewModel? _activePack;
         private bool _configurationViewModelActive;
         private bool _playerViewModelActive;
-        private bool _canRemove;
+        private bool _canRemoveQuestionPack;
 
         public bool CanRemoveQuestionPack
         {
-            get => _canRemove;
+            get => _canRemoveQuestionPack;
             set
             {
-                _canRemove = value;
+                _canRemoveQuestionPack = value;
                 RaisePropertyChanged();
             }
         }
+
         public QuestionPackViewModel? ActivePack
 		{
             get => _activePack;
@@ -39,10 +40,9 @@ namespace Lab_3.ViewModel
                 _activePack = value;
                 RaisePropertyChanged();
                 ConfigurationViewModel?.RaisePropertyChanged();
-                RemoveActivePackCommand.RaiseCanExecuteChanged();
-                StartQuizCommand.RaiseCanExecuteChanged();
+                UpdateCommandStates();
 
-                if(Packs.Count > 1 )
+                if (Packs.Count > 1 )
                 {
                     CanRemoveQuestionPack = true;
                 }
@@ -75,14 +75,14 @@ namespace Lab_3.ViewModel
         public JsonQuestionPackHandler JsonQuestionPackHandler { get; }
         public ObservableCollection<QuestionPackViewModel> Packs{ get; set; }
         public PlayerViewModel PlayerViewModel { get; }
-        public ConfigurationViewModel ConfigurationViewModel { get; }
-        public DelegateCommand ChangeActivePackCommand { get; }
-        public DelegateCommand RemoveActivePackCommand { get; }
-        public DelegateCommand StartQuizCommand { get; }
-        public DelegateCommand StartConfigurationCommand { get; }
-        public DelegateCommand CreateNewDialogCommand { get; }
-        public DelegateCommand ChangeWindowStateCommand { get; }
-        public DelegateCommand ExitProgramRequestCommand { get; }
+        public ConfigurationViewModel ConfigurationViewModel { get; private set; }
+        public DelegateCommand ChangeActivePackCommand { get; private set; }
+        public DelegateCommand RemoveActivePackCommand { get; private set; }
+        public DelegateCommand StartQuizCommand { get; private set; }
+        public DelegateCommand StartConfigurationCommand { get; private set; }
+        public DelegateCommand CreateNewDialogCommand { get; private set; }
+        public DelegateCommand ChangeWindowStateCommand { get; private set; }
+        public DelegateCommand ExitProgramRequestCommand { get; private set; }
 
         public event Action ChangeWindowRequested;
         public event EventHandler RequestExit;
@@ -94,6 +94,12 @@ namespace Lab_3.ViewModel
             PlayerViewModel = new PlayerViewModel(this);
             JsonQuestionPackHandler = new JsonQuestionPackHandler(this);
 
+            InitializeCommands();
+            PlayerViewModelActive = false;
+        }
+
+        private void InitializeCommands()
+        {
             ChangeWindowStateCommand = new DelegateCommand(ChangeWindowState);
             ExitProgramRequestCommand = new DelegateCommand(ExitProgramRequest);
             ShowDialogCommand = new DelegateCommand(CreateNewDialog);
@@ -103,13 +109,15 @@ namespace Lab_3.ViewModel
             StartQuizCommand = new DelegateCommand(StartQuiz, canPlay => ActivePack.Questions.Count > 0);
             StartConfigurationCommand = new DelegateCommand(StartConfiguration);
             CreateNewDialogCommand = new DelegateCommand(CreateNewDialog);
-
-            PlayerViewModelActive = false;
         }
 
-        private void ExitProgramRequest(object obj)
+        private void ExitProgramRequest(object obj) => RequestExit?.Invoke(this, EventArgs.Empty);
+        private void ChangeWindowState(object obj) => ChangeWindowRequested?.Invoke();
+
+        private void UpdateCommandStates()
         {
-            RequestExit?.Invoke(this, EventArgs.Empty);
+            RemoveActivePackCommand.RaiseCanExecuteChanged();
+            StartQuizCommand.RaiseCanExecuteChanged();
         }
 
         public async Task InitializeAsync()
@@ -162,11 +170,6 @@ namespace Lab_3.ViewModel
         {
             string className = obj as string;
             ShowDialogRequested?.Invoke(className);
-        }
-
-        private void ChangeWindowState(object obj)
-        {
-            ChangeWindowRequested?.Invoke();
         }
     }
 }

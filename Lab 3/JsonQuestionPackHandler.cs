@@ -21,8 +21,23 @@ namespace Lab_3
 
         public async Task SaveQuestionPacksToJsonAsync(ObservableCollection<QuestionPackViewModel> questionPacks)
         {
-            string json = JsonSerializer.Serialize(questionPacks);
-            await File.WriteAllTextAsync(saveLocation, json);
+            try
+            {
+                string json = JsonSerializer.Serialize(questionPacks);
+                await File.WriteAllTextAsync(saveLocation, json);
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine($"I/O error saving to file: {ex.Message}");
+            }
+            catch (JsonException ex)
+            {
+                Console.WriteLine($"Error serializing question packs: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Unexpected error: {ex.Message}");
+            }
         }
 
         public async Task<ObservableCollection<QuestionPackViewModel>> LoadQuestionPacksAsync()

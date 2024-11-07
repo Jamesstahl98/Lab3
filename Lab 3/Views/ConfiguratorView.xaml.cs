@@ -13,11 +13,5 @@ namespace Lab_3.Views
         {
             InitializeComponent();
         }
-
-        private void OpenPackOptions(object sender, RoutedEventArgs e)
-        {
-            var packOptionsDialog = new PackOptionsDialog();
-            packOptionsDialog.ShowDialog();
-        }
     }
 }

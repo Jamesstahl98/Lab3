@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Lab_3
+namespace Lab_3.Model
 {
     class JsonQuestionPackHandler
     {

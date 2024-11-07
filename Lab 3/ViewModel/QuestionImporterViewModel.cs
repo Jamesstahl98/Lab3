@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -139,6 +140,11 @@ namespace Lab_3.ViewModel
             if (response.IsSuccessStatusCode)
             {
                 var questionResponse = JsonSerializer.Deserialize<QuestionResponse>(jsonResponse);
+
+                if (questionResponse?.Results != null)
+                {
+                    questionResponse = await GetHtmlDecodedQuestionResponseAsync(questionResponse);
+                }
                 return questionResponse?.Results ?? new List<Question>();
             }
             else
@@ -188,6 +194,21 @@ namespace Lab_3.ViewModel
             {
                 OnRequestClose();
             }
+        }
+
+        private static async Task<QuestionResponse> GetHtmlDecodedQuestionResponseAsync(QuestionResponse questionResponse)
+        {
+            foreach (var question in questionResponse.Results)
+            {
+                question.Query = WebUtility.HtmlDecode(question.Query);
+                question.CorrectAnswer = WebUtility.HtmlDecode(question.CorrectAnswer);
+
+                for (int i = 0; i < question.IncorrectAnswers.Length; i++)
+                {
+                    question.IncorrectAnswers[i] = WebUtility.HtmlDecode(question.IncorrectAnswers[i]);
+                }
+            }
+            return questionResponse;
         }
 
         private void OnRequestClose()

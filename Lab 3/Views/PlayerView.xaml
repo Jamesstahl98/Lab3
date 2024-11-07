@@ -38,10 +38,15 @@
                     Visibility="{Binding QuizOngoing, Converter={StaticResource BooleanToVisibilityConverter}}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-            <Label Content="{Binding ActiveQuestion.Query}"
-                   FontSize="32"
-                   HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding ActiveQuestion.Query}"
+                       Foreground="White"
+                       Margin="20,0"
+                       TextWrapping="Wrap"
+                       FontSize="32"
+                       HorizontalAlignment="Center"/>
+            
             <TextBlock Foreground="White"
+                       Margin="20,0"
                        HorizontalAlignment="Center">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="Question {0} of {1}">

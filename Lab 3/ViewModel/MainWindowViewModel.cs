@@ -91,21 +91,20 @@ namespace Lab_3.ViewModel
 
         public MainWindowViewModel()
         {
+            PlayerViewModel = new PlayerViewModel(this);
+            JsonQuestionPackHandler = new JsonQuestionPackHandler(this);
+
             ChangeWindowStateCommand = new DelegateCommand(ChangeWindowState);
             ExitProgramRequestCommand = new DelegateCommand(ExitProgramRequest);
             ShowDialogCommand = new DelegateCommand(CreateNewDialog);
-            PlayerViewModel = new PlayerViewModel(this);
             ConfigurationViewModel = new ConfigurationViewModel(this);
-
-            PlayerViewModelActive = false;
-
             ChangeActivePackCommand = new DelegateCommand(ChangeActivePack);
             RemoveActivePackCommand = new DelegateCommand(RemoveActivePack, canRemove => Packs.Count > 1);
             StartQuizCommand = new DelegateCommand(StartQuiz, canPlay => ActivePack.Questions.Count > 0);
             StartConfigurationCommand = new DelegateCommand(StartConfiguration);
             CreateNewDialogCommand = new DelegateCommand(CreateNewDialog);
 
-            JsonQuestionPackHandler = new JsonQuestionPackHandler(this);
+            PlayerViewModelActive = false;
         }
 
         private void ExitProgramRequest(object obj)

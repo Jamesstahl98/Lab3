@@ -85,7 +85,7 @@ namespace Lab_3.ViewModel
         public DelegateCommand ExitProgramRequestCommand { get; private set; }
 
         public event Action ChangeWindowRequested;
-        public event EventHandler RequestExit;
+        public event Action RequestExit;
         public DelegateCommand ShowDialogCommand { get; private set; }
         public event Action<string> ShowDialogRequested;
 
@@ -111,7 +111,7 @@ namespace Lab_3.ViewModel
             CreateNewDialogCommand = new DelegateCommand(CreateNewDialog);
         }
 
-        private void ExitProgramRequest(object obj) => RequestExit?.Invoke(this, EventArgs.Empty);
+        private void ExitProgramRequest(object obj) => RequestExit?.Invoke();
         private void ChangeWindowState(object obj) => ChangeWindowRequested?.Invoke();
 
         private void UpdateCommandStates()

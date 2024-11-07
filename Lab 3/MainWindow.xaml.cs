@@ -25,7 +25,7 @@ namespace Lab_3
 
             viewModel.ShowDialogRequested += OnShowDialogRequested;
             viewModel.ChangeWindowRequested += ChangeWindowState;
-            viewModel.RequestExit += (s, e) => Application.Current.Shutdown();
+            viewModel.RequestExit += () => Application.Current.Shutdown();
         }
 
         private void OnShowDialogRequested(string className)

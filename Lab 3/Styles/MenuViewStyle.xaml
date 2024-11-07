@@ -37,25 +37,15 @@
         <Setter Property="Height" Value="16"/>
     </Style>
     
+    
     <Style x:Key="MultiBindingMenuItemStyle" TargetType="{x:Type MenuItem}">
-        <Setter Property="HeaderTemplate">
-            <Setter.Value>
-                <DataTemplate>
-                    <TextBlock>
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0} ({1})">
-                                <Binding Path="Name"/>
-                                <Binding Path="Difficulty"/>
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
-                </DataTemplate>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="Header" Value="{Binding Name}" />
+        <Setter Property="InputGestureText" Value="{Binding Difficulty}" />
+
         <Setter Property="Command" Value="{Binding DataContext.ChangeActivePackCommand, 
-                    RelativeSource={RelativeSource Mode=FindAncestor, 
-                    AncestorType={x:Type MenuItem}, 
-                    AncestorLevel=1}}" />
+                RelativeSource={RelativeSource Mode=FindAncestor, 
+                AncestorType={x:Type MenuItem}, 
+                AncestorLevel=1}}" />
         <Setter Property="CommandParameter" Value="{Binding}"/>
     </Style>
 </ResourceDictionary>

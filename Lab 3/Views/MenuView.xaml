@@ -38,6 +38,7 @@
                           Command="{Binding CreateNewDialogCommand}"
                           CommandParameter="DeleteQuestionPackDialog"
                           Icon="{fa:Icon FolderMinus}"/>
+                
                 <MenuItem Header="_Import Questions"
                           InputGestureText="Ctrl-I"
                           Command="{Binding CreateNewDialogCommand}"

@@ -46,6 +46,7 @@
                 <Separator/>
                 <MenuItem Header="E_xit"
                           InputGestureText="Alt-F4"
+                          Command="{Binding ExitProgramRequestCommand}"
                           Icon="{fa:Icon DoorOpen}"/>
             </MenuItem>
             

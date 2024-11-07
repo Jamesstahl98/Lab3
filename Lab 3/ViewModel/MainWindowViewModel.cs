@@ -82,13 +82,17 @@ namespace Lab_3.ViewModel
         public DelegateCommand StartConfigurationCommand { get; }
         public DelegateCommand CreateNewDialogCommand { get; }
         public DelegateCommand ChangeWindowStateCommand { get; }
+        public DelegateCommand ExitProgramRequestCommand { get; }
+
         public event Action ChangeWindowRequested;
+        public event EventHandler RequestExit;
         public DelegateCommand ShowDialogCommand { get; private set; }
         public event Action<string> ShowDialogRequested;
 
         public MainWindowViewModel()
         {
             ChangeWindowStateCommand = new DelegateCommand(ChangeWindowState);
+            ExitProgramRequestCommand = new DelegateCommand(ExitProgramRequest);
             ShowDialogCommand = new DelegateCommand(CreateNewDialog);
             PlayerViewModel = new PlayerViewModel(this);
             ConfigurationViewModel = new ConfigurationViewModel(this);
@@ -102,6 +106,11 @@ namespace Lab_3.ViewModel
             CreateNewDialogCommand = new DelegateCommand(CreateNewDialog);
 
             JsonQuestionPackHandler = new JsonQuestionPackHandler(this);
+        }
+
+        private void ExitProgramRequest(object obj)
+        {
+            RequestExit?.Invoke(this, EventArgs.Empty);
         }
 
         public async Task InitializeAsync()

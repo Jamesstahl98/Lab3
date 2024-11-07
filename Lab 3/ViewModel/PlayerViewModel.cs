@@ -15,6 +15,9 @@ namespace Lab_3.ViewModel
 {
     internal class PlayerViewModel : ViewModelBase
     {
+        private const int revealDelayMS = 2000;
+        private const int answersOptionCount = 4;
+
         private Question[] questions;
         private readonly MainWindowViewModel? mainWindowViewModel;
         private DispatcherTimer timer;
@@ -103,19 +106,24 @@ namespace Lab_3.ViewModel
         public PlayerViewModel(MainWindowViewModel? mainWindowViewModel)
         {
             RevealedAnswers = new ObservableCollection<bool?>();
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < answersOptionCount; i++)
             {
                 RevealedAnswers.Add(null);
             }
 
-            this.mainWindowViewModel = mainWindowViewModel;
+            InitializeTimer();
 
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += Timer_Tick;
+            this.mainWindowViewModel = mainWindowViewModel;
 
             PlayerGuessCommand = new DelegateCommand(PlayerGuess);
             RestartQuizCommand = new DelegateCommand(RestartQuiz);
+        }
+
+        private void InitializeTimer()
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += OnTimerTick;
         }
 
         private void RestartQuiz(object obj)
@@ -139,21 +147,34 @@ namespace Lab_3.ViewModel
         private void StartQuestion(Question question)
         {
             QuestionCount++;
-            for (int i = 0; i < RevealedAnswers.Count; i++)
-            {
-                RevealedAnswers[i] = null;
-            }
+            RevealedAnswers = GetResetRevealedAnswers(RevealedAnswers);
 
-            Answers = new string[4];
-            Answers[0] = question.CorrectAnswer;
-            for (int i = 0; i < question.IncorrectAnswers.Length; i++)
-            {
-                Answers[i+1] = question.IncorrectAnswers[i];
-            }
+            Answers = GetPreparedQuestions(question);
             Answers = RandomizeArray(Answers);
 
             TimeLeft = ActivePack.TimeLimitInSeconds;
             timer.Start();
+        }
+
+        private ObservableCollection<bool?> GetResetRevealedAnswers(ObservableCollection<bool?> revealedAnswers)
+        {
+            for (int i = 0; i < revealedAnswers.Count; i++)
+            {
+                revealedAnswers[i] = null;
+            }
+            return revealedAnswers;
+        }
+
+        private string[] GetPreparedQuestions(Question question)
+        {
+            string[] answers = new string[answersOptionCount];
+            answers[0] = question.CorrectAnswer;
+
+            for (int i = 0; i < question.IncorrectAnswers.Length; i++)
+            {
+                answers[i + 1] = question.IncorrectAnswers[i];
+            }
+            return answers;
         }
 
         private T[] RandomizeArray<T>(T[] array)
@@ -192,23 +213,23 @@ namespace Lab_3.ViewModel
                 }
             }
 
-            await WaitMilliseconds(2000);
+            await Task.Delay(revealDelayMS);
 
             if (QuestionPackQuestionCount <= _questionCount)
             {
-                StopQuiz();
+                EndQuiz();
                 return;
             }
             ActiveQuestion = questions[_questionCount];
             StartQuestion(ActiveQuestion);
         }
 
-        private void StopQuiz()
+        private void EndQuiz()
         {
             QuizOngoing = false;
         }
 
-        private void Timer_Tick(object? sender, EventArgs e)
+        private void OnTimerTick(object? sender, EventArgs e)
         {
             TimeLeft--;
         }
@@ -216,11 +237,6 @@ namespace Lab_3.ViewModel
         private void StopTimer()
         {
             timer.Stop();
-        }
-
-        private static async Task WaitMilliseconds(int milliseconds)
-        {
-            await Task.Delay(milliseconds);
         }
     }
 }

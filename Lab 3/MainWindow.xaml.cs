@@ -1,5 +1,4 @@
 ﻿using Lab_3.Command;
-using Lab_3.Interfaces;
 using Lab_3.Model;
 using Lab_3.ViewModel;
 using System.Windows;

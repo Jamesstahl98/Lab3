@@ -24,7 +24,7 @@ namespace Lab_3
             menuView.MainWindow = this;
 
             viewModel.ShowDialogRequested += OnShowDialogRequested;
-            viewModel.ChangeWindowRequested += ChangeWindowState;
+            viewModel.ChangeWindowRequested += OnChangeWindowRequested;
             viewModel.RequestExit += () => Application.Current.Shutdown();
         }
 
@@ -44,7 +44,7 @@ namespace Lab_3
             }
         }
 
-        private void ChangeWindowState()
+        private void OnChangeWindowRequested()
         {
             if (WindowState == WindowState.Maximized)
             {

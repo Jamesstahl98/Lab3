@@ -182,6 +182,8 @@ namespace Lab_3.ViewModel
                 mainWindowViewModel.ActivePack.Questions.Add(question);
             }
 
+            Task.Run(async () => await mainWindowViewModel.JsonQuestionPackHandler.SaveQuestionPacksToJsonAsync(mainWindowViewModel.Packs));
+
             ErrorMessage = string.Empty;
             return true;
         }

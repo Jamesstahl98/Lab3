@@ -38,5 +38,4 @@ namespace Lab_3.Converters
             }
         }
     }
-    }
 }

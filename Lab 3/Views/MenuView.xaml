@@ -45,7 +45,6 @@
                           CommandParameter="ImportQuestionsToPack"
                           Icon="{fa:Icon CloudArrowDown}">
                 </MenuItem>
-                <Separator/>
                 <MenuItem Header="E_xit"
                           InputGestureText="Alt-F4"
                           Command="{Binding ExitProgramRequestCommand}"
